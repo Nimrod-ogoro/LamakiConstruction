@@ -5,7 +5,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 const project = [
   {
     img: [
-      "/img-14.jpg", "/img-15.jpg", "/img-16.jpg", "/img-17.jpg", "/img-18.jpg",
+      "/img-16.jpg", "/img-17.jpg", "/img-18.jpg",
       "/img-19.jpg", "/img-20.jpg", "/img-21.jpg", "/img-22.jpg", "/img-23.jpg"
     ],
     description: [
@@ -25,7 +25,7 @@ const project = [
   },
   {
     img: [
-      "/DJI_0836.jpg"
+      "img-28", "img-29", "img-30", "img-31", "img-32"
     ],
     description: [
       "Modern flat roof mansion", "Modern interior design and lighting",
