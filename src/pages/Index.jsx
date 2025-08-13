@@ -6,7 +6,7 @@ import About from '../components/About'
 import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
 import Projects from '../components/Projects'
-import Contact from '../components/contact'
+import Contact from '../components/Contact'
 import Merchandise from '../components/Merchandise'
 
 
