@@ -30,14 +30,14 @@ const Hero = () => {
           <video
             ref={videoRef}
             className="fade-video"
-            src="/REEL.mp4"
+            src="https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/REEL.mp4"
             autoPlay
             muted
             playsInline
           />
         ) : (
           <img
-            src="hero.png.png"
+            src="https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/hero.png.png"
             alt="Background"
             className="fade-image"
           />
