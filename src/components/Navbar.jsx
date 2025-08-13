@@ -20,7 +20,7 @@ const Navbar = () => {
 
     {/*Desktop Navigation*/}
     <div className='desktop-nav '>
-        <Button
+        <Button href="#contact"
           variant='cta' size='sm'>
             Get Quote
             
@@ -43,13 +43,10 @@ const Navbar = () => {
         className='nav-button'>Projects
         </button>
         <button
-        onClick={()=> scrollToSection('Merchandise')}
+        onClick={()=> scrollToSection('merchandise')}
         className='nav-button'>Merchandise
         </button>
-        <button
-        onClick={()=> scrollToSection('Gallary')}
-        className='nav-button'>Gallery
-        </button>
+       
         
 
     </div>

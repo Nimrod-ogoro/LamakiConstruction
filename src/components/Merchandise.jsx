@@ -95,7 +95,7 @@ export default function Merchandise() {
   return (
     <section id="merchandise" className="merch-section">
       <div className="merch-header">
-        <h2 className="merch-title">BuildWell Merchandise</h2>
+        <h2 className="merch-title">Lamaki Designs Merchandise</h2>
         <div className="merch-cart">
           <ShoppingCart className="cart-icon" />
           <span className="cart-count">{cartCount}</span>
