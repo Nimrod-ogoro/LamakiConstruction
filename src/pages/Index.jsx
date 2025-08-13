@@ -1,7 +1,7 @@
 
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import Services from '../components/services'
+import Services from '../components/Services'
 import About from '../components/About'
 import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
