@@ -1,6 +1,6 @@
 
 import Navbar from '../components/Navbar'
-import Hero from '../components/hero'
+import Hero from '../components/Hero'
 import Services from '../components/services'
 import About from '../components/About'
 import Footer from '../components/Footer'
