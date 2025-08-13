@@ -25,7 +25,7 @@ const project = [
   },
   {
     img: [
-      "img-28", "img-29", "img-30", "img-31", "img-32"
+      "img-28.jpg", "img-29.jpg", "img-30.jpg", "img-31.jpg", "img-32.jpg"
     ],
     description: [
       "Modern flat roof mansion", "Modern interior design and lighting",
