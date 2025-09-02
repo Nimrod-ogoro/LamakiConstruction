@@ -17,7 +17,7 @@ const staticProjects = [
   }
 ];
 
-const Projects = () => {
+const Projects  = () => {
   const [projects, setProjects] = useState(staticProjects);
   const [currentIndexes, setCurrentIndexes] = useState(projects.map(() => 0));
   const [lightbox, setLightbox] = useState({ isOpen: false, images: [], index: 0 });

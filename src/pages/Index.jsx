@@ -5,9 +5,9 @@ import Services from '../components/Services'
 import About from '../components/About'
 import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
-
+import Projects from '../components/Projects'
 import Contact from '../components/Contact'
-import Projects from "../components/Projects"
+
 
 
 
@@ -18,7 +18,7 @@ const Index = () => {
       <Hero/>
       <Services/>
       
-     <Projects/>
+       <Projects/>
       <About/>
      
       <Contact/>
