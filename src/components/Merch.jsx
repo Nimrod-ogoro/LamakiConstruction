@@ -6,7 +6,7 @@ import { ShoppingCart, Star, HardHat } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 import { useNavigate } from "react-router";
 import Footer from "./Footer";
-import AuthModal from "./authModal";
+import AuthModal from "./AuthModal"
 
 const iconForCategory = (category) => {
   switch (category?.toLowerCase()) {
