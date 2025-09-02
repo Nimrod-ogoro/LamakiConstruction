@@ -11,6 +11,8 @@ import {
   CardFooter,
 } from "./ui/card";
 import Button from './ui/Button';
+import { Link } from 'react-router';
+
 
 const Services = () => {
    const services = [
@@ -18,25 +20,30 @@ const Services = () => {
       icon: <LuHouse className='service-icon' />,
       title: "Residential Construction",
       description: "Expert construction services for homes, ensuring quality and durability.",
-      features: ["Custom home design", "Room additions", "Renovations and extensions", "Energy-efficient solutions"]
+      features: ["Custom home design", "Room additions", "Renovations and extensions", "Energy-efficient solutions"],
+      link: <Link to='/Residential'>Learn More</Link>
+
     },
     {
       icon: <img src="comercial.png" className='commercial-icon' alt="comercial-img"/>,
       title: "Commercial Construction",
       description: "Comprehensive construction solutions for commercial properties.",
-      features: ["Office buildings", "Retail spaces", "Warehouses", "Industrial facilities"]
+      features: ["Office buildings", "Retail spaces", "Warehouses", "Industrial facilities"],
+       link: <Link to='/Commercial'>Learn More</Link>
     },
     {
       icon: <CiDeliveryTruck className='service-icon' />,
       title: "Project Management",
       description: "End-to-end project management services to ensure timely and on-budget delivery.",
-      features: ["Planning and scheduling", "Budget management", "Quality control", "Risk management"]
+      features: ["Planning and scheduling", "Budget management", "Quality control", "Risk management"],
+       link: <Link to='/ProjectManagemnet'>Learn More</Link>
     },
     {
       icon: <FaScrewdriverWrench className='service-icon' />,
       title: "Renovation and Remodeling",
       description: "Transforming existing spaces with modern designs and functionality.",
-      features: ["Kitchen remodeling", "Bathroom renovations", "Interior design", "Exterior upgrades"]
+      features: ["Kitchen remodeling", "Bathroom renovations", "Interior design", "Exterior upgrades"],
+       link: <Link to='/Renovations'>Learn More</Link>
     }
    ]
   return (
@@ -66,7 +73,7 @@ const Services = () => {
               ))}
             </ul>
           </CardContent>
-          <Button className='service-btn'>Learn More</Button>
+          <Button className='service-btn'>{service.link}</Button>
           </Card>))}
           </div>
 

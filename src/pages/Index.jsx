@@ -5,9 +5,10 @@ import Services from '../components/Services'
 import About from '../components/About'
 import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
-import Projects from '../components/Projects'
+
 import Contact from '../components/Contact'
-import Merchandise from '../components/Merchandise'
+import Projects from '../components/projects'
+
 
 
 const Index = () => {
@@ -19,7 +20,7 @@ const Index = () => {
       
       <Projects/>
       <About/>
-      <Merchandise/>
+     
       <Contact/>
       <Footer/>
       <Chatbot/>

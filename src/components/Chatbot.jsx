@@ -38,6 +38,8 @@ const Chatbot = () => {
       "We accept bank transfers, checks, and major credit cards. Payment plans are available for large projects.",
     permits:
       "Yes, we handle all required permits and inspections for your project.",
+    Licences:
+    "Yes we are a licencensed construction company and we aslo handle  all required permits and inspection for your projects",
     location:
       "We serve Nairobi and surrounding areas. For projects outside this range, please contact us for confirmation.",
   };
@@ -110,7 +112,7 @@ const Chatbot = () => {
       ) : (
         <div className={`chatbot-container ${isMinimized ? "minimized" : ""}`}>
           <div className="chatbot-header">
-            <span>BuildWell Assistant</span>
+            <span>Lamaki Designs Assistant</span>
             <div>
               <button
                 className="icon-btn"
