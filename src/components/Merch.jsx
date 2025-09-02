@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import Footer from "./Footer";
 import AuthModal from "./AuthModal"
 
+
 const iconForCategory = (category) => {
   switch (category?.toLowerCase()) {
     case "apparel":
@@ -161,7 +162,7 @@ export default function Merch() {
       </section>
 
       <Footer />
-      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
+      < AuthModal  open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
   );
 }
