@@ -23,7 +23,7 @@ const SignUp = () => {
 
     setLoading(true);
     try {
-      const res = await fetchAPI('/auth/register', {
+      const res = await fetchAPI('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify({
           name: form.name,

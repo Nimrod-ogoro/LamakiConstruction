@@ -25,7 +25,7 @@ const Login = () => {
 
     // normal user login – your controller expects email
     try {
-      const res = await fetchAPI('/auth/login', {
+      const res = await fetchAPI('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email: form.email, password: form.password }),
       });
