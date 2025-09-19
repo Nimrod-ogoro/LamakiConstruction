@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from "../hooks/useAuth"
+import { useAuth } from "../hooks/useAuth";
+import { fetchAPI } from "../api"; // ✅ use global API helper
 import './auth.css'; // re-use the blue-maroon styles
 
 const Login = () => {
@@ -24,9 +25,8 @@ const Login = () => {
 
     // normal user login – your controller expects email
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetchAPI('/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: form.email, password: form.password }),
       });
 

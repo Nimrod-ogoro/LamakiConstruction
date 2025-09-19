@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { fetchAPI } from '../api'; // ✅ use global API helper
 import './auth.css'; // re-use the blue-maroon styles
 
 const SignUp = () => {
@@ -22,9 +23,8 @@ const SignUp = () => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetchAPI('/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
