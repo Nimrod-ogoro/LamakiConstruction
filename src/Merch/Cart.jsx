@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, updateQty, removeFromCart } from "./services/CartService";
+import { fetchAPI } from "../config/api"; // ✅ import API base
 import Footer from "../components/Footer";   //  keep your existing Footer component
 
 export default function Cart() {
@@ -54,7 +55,7 @@ export default function Cart() {
     alignItems: "center",
     justifyContent: "space-between",
   };
-  const logoStyle = { height: "50px", cursor: "pointer" , width:"50px"};
+  const logoStyle = { height: "50px", cursor: "pointer", width:"50px" };
   const backBtn = {
     background: "#ffffff",
     color: "#800000",
@@ -124,7 +125,7 @@ export default function Cart() {
           {cart.map((item) => (
             <div className="cart-item" key={item.cart_id}>
               {item.image_url && (
-                <img src={`http://localhost:5000${item.image_url}`} alt={item.name} />
+                <img src={`${fetchAPI}${item.image_url}`} alt={item.name} /> 
               )}
               <div className="cart-info">
                 <h4>{item.name}</h4>

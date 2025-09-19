@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { fetchAPI } from "../config/api"; // ✅ global API helper
 
 const staticProjects = [
   {
@@ -24,11 +25,10 @@ const Projects  = () => {
 
   // ✅ Fetch dynamic projects from backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/projects")
-      .then((res) => res.json())
+    fetchAPI("/projects")
       .then((data) => {
         const formatted = data.map(p => ({
-          img: p.images.map(i => `http://localhost:5000/uploads/${i}`), // ✅ prepend uploads path
+          img: p.images.map(i => fetchAPI(`/uploads/${i}`, false)), // ✅ use helper (false = return raw URL if you coded it like that)
           description: Array.isArray(p.description) ? p.description : [p.description]
         }));
         setProjects([...staticProjects, ...formatted]); // merge static + dynamic
@@ -95,6 +95,7 @@ const Projects  = () => {
 };
 
 export default Projects;
+
 
 
 

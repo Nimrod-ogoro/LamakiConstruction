@@ -1,5 +1,5 @@
 export async function initiateMpesaPayment({ phone, amount, orderId }) {
-  const res = await fetch("http://localhost:5000/api/mpesa/stk", {
+  const res = await fetch("https://lamaki-backend.vercel.app/api/mpesa/stk", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ phone, amount, orderId }),

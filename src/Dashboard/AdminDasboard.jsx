@@ -3,6 +3,7 @@ import AddProjects from "./AddProjects";
 import AddProducts from "./AddProducts";
 import Users from "./Users";
 import Oders from "./Oders";
+import { fetchAPI } from "../config/api"; // ✅ use your helper
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -22,22 +23,11 @@ const AdminDashboard = () => {
   // ✅ Fetch all overview data
   const fetchAllData = async () => {
     try {
-      const [projectsRes, productsRes, usersRes, ordersRes] = await Promise.all([
-        fetch("http://localhost:5000/api/projects"),
-        fetch("http://localhost:5000/api/products"),
-        fetch("http://localhost:5000/api/auth/users"), // ✅ correct endpoint
-        fetch("http://localhost:5000/api/orders"),
-      ]);
-
-      if (!projectsRes.ok || !productsRes.ok || !usersRes.ok || !ordersRes.ok) {
-        throw new Error("One or more resources failed to load");
-      }
-
       const [projects, products, users, orders] = await Promise.all([
-        projectsRes.json(),
-        productsRes.json(),
-        usersRes.json(),
-        ordersRes.json(),
+        fetchAPI("/api/projects"),
+        fetchAPI("/api/products"),
+        fetchAPI("/api/auth/users"), // ✅ correct endpoint
+        fetchAPI("/api/orders"),
       ]);
 
       setOverviewData({ projects, products, users, orders });
@@ -50,15 +40,11 @@ const AdminDashboard = () => {
   const handleDeleteProject = async (id) => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setOverviewData((prev) => ({
-          ...prev,
-          projects: prev.projects.filter((p) => p.id !== id),
-        }));
-      }
+      await fetchAPI(`/api/projects/${id}`, { method: "DELETE" });
+      setOverviewData((prev) => ({
+        ...prev,
+        projects: prev.projects.filter((p) => p.id !== id),
+      }));
     } catch (err) {
       console.error("Error deleting project:", err);
     }
@@ -68,15 +54,11 @@ const AdminDashboard = () => {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setOverviewData((prev) => ({
-          ...prev,
-          products: prev.products.filter((p) => p.id !== id),
-        }));
-      }
+      await fetchAPI(`/api/products/${id}`, { method: "DELETE" });
+      setOverviewData((prev) => ({
+        ...prev,
+        products: prev.products.filter((p) => p.id !== id),
+      }));
     } catch (err) {
       console.error("Error deleting product:", err);
     }
@@ -86,15 +68,11 @@ const AdminDashboard = () => {
   const handleDeleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/users/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setOverviewData((prev) => ({
-          ...prev,
-          users: prev.users.filter((u) => u.id !== id),
-        }));
-      }
+      await fetchAPI(`/api/auth/users/${id}`, { method: "DELETE" });
+      setOverviewData((prev) => ({
+        ...prev,
+        users: prev.users.filter((u) => u.id !== id),
+      }));
     } catch (err) {
       console.error("Error deleting user:", err);
     }
@@ -104,15 +82,11 @@ const AdminDashboard = () => {
   const handleDeleteOrder = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setOverviewData((prev) => ({
-          ...prev,
-          orders: prev.orders.filter((o) => o.id !== id),
-        }));
-      }
+      await fetchAPI(`/api/orders/${id}`, { method: "DELETE" });
+      setOverviewData((prev) => ({
+        ...prev,
+        orders: prev.orders.filter((o) => o.id !== id),
+      }));
     } catch (err) {
       console.error("Error deleting order:", err);
     }

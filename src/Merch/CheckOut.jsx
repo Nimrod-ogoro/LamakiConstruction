@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { createOrder } from "./services/OrderService";
 import { initiateMpesaPayment } from "./services/Mpesa";
+import { fetchAPI } from "../config/api"; // ✅ import API base
 import Footer from "../components/Footer";
 
 /* ---------- cart-style nav-bar ---------- */
@@ -142,7 +143,7 @@ export default function Checkout() {
                 <tr key={item.cart_id || item.id}>
                   <td className="item-cell">
                     {item.image_url && (
-                      <img src={`http://localhost:5000${item.image_url}`} alt={item.name} />
+                      <img src={`${fetchAPI}${item.image_url}`} alt={item.name} />
                     )}
                     <span>{item.name}</span>
                   </td>

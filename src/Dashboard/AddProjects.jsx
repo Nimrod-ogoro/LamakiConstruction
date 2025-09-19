@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { fetchAPI } from "../config/api"; // ✅ global API helper
 
 const AddProject = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,6 @@ const AddProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // prepare data for API
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("description", formData.description);
@@ -28,10 +28,15 @@ const AddProject = () => {
     });
 
     try {
-      const res = await fetch("http://localhost:5000/api/projects", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const res = await fetchAPI(
+        "/projects",
+        {
+          method: "POST",
+          body: formDataToSend,
+        },
+        true // ⚡ flag for FormData (if your helper requires it)
+      );
+
       if (res.ok) {
         alert("✅ Project added successfully!");
         setFormData({

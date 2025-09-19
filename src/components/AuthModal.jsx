@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { fetchAPI } from "../config/api"; // ✅ use your global API helper
 
 const AuthModal = ({ open, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -42,18 +42,16 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isLogin
-      ? "http://localhost:5000/api/auth/login"
-      : "http://localhost:5000/api/auth/register";
+    const url = isLogin ? "/auth/login" : "/auth/register";
 
     try {
-      const res = await axios.post(url, formData, { withCredentials: true });
+      const res = await fetchAPI.post(url, formData, { withCredentials: true });
       let { token, user } = res.data;
 
       // ✅ If signup didn’t return a token, auto-login
       if (!token && !isLogin) {
-        const loginRes = await axios.post(
-          "http://localhost:5000/api/auth/login",
+        const loginRes = await fetchAPI.post(
+          "/auth/login",
           { email: formData.email, password: formData.password },
           { withCredentials: true }
         );
@@ -76,7 +74,7 @@ const AuthModal = ({ open, onClose }) => {
   };
 
   const handleGoogleAuth = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = `${fetchAPI.defaults.baseURL}/auth/google`;
   };
 
   return (
@@ -142,5 +140,6 @@ const AuthModal = ({ open, onClose }) => {
 };
 
 export default AuthModal;
+
 
 

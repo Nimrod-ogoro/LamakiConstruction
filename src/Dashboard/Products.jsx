@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./Products.css"; // <- make sure to import the CSS
+import { fetchAPI } from "../config/api"; // ✅ only added import
 
 const Products = () => {
   const [form, setForm] = useState({
@@ -26,12 +26,16 @@ const Products = () => {
       formData.append("stock", form.stock);
       if (form.image) formData.append("image", form.image);
 
-      const res = await fetch("http://localhost:5000/api/products", {
+      // ✅ swapped fetch with fetchAPI, nothing else touched
+      const res = await fetchAPI("/api/products", {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
-      if (!res.ok) return alert("Error adding product: " + (data?.error || "Unknown error"));
+      if (!res.ok)
+        return alert(
+          "Error adding product: " + (data?.error || "Unknown error")
+        );
       alert("✅ Product added successfully!");
     } catch (err) {
       console.error(err);
@@ -43,11 +47,33 @@ const Products = () => {
     <div className="products-admin">
       <h2>Add Product</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
-        <textarea name="description" placeholder="Description" onChange={handleChange} />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          onChange={handleChange}
+        />
         <div className="row">
-          <input type="number" name="price" placeholder="Price" onChange={handleChange} required />
-          <input type="number" name="stock" placeholder="Stock" onChange={handleChange} required />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="stock"
+            placeholder="Stock"
+            onChange={handleChange}
+            required
+          />
         </div>
         <input type="file" name="image" onChange={handleChange} />
         <button type="submit">Add Product</button>
@@ -57,6 +83,7 @@ const Products = () => {
 };
 
 export default Products;
+
 
 
 

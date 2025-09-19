@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthModalContext } from "./authEvent"
 
-const API_URL = 'http://localhost:5000/api/cart';
+const API_URL = 'https://lamaki-backend.vercel.app/api/cart';
 
 let modalRef = null; // singleton
 export function setModalRef(ref) { modalRef = ref; }

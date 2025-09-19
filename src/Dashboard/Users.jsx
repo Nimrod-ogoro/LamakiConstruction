@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchAPI } from "../config/api"; // ✅ import your API base
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/users");
+      const res = await fetch(`${fetchAPI}/api/auth/users`); // ✅ replaced localhost
       const data = await res.json();
       setUsers(data);
     } catch (err) {
@@ -49,4 +50,5 @@ const Users = () => {
 };
 
 export default Users;
+
 

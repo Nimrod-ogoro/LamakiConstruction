@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./Products.css"; // <- make sure to import the CSS
+import { fetchAPI } from "../config/api"; // ✅ use global API helper
 
 const Products = () => {
   const [form, setForm] = useState({
@@ -26,12 +26,17 @@ const Products = () => {
       formData.append("stock", form.stock);
       if (form.image) formData.append("image", form.image);
 
-      const res = await fetch("http://localhost:5000/api/products", {
+      // ✅ Use fetchAPI in raw mode (skip JSON header handling)
+      const res = await fetchAPI("/products", {
         method: "POST",
         body: formData,
-      });
-      const data = await res.json();
-      if (!res.ok) return alert("Error adding product: " + (data?.error || "Unknown error"));
+      }, true); // <-- pass true to signal raw FormData (if your helper supports it)
+
+      if (!res.ok) {
+        const data = await res.json();
+        return alert("Error adding product: " + (data?.error || "Unknown error"));
+      }
+
       alert("✅ Product added successfully!");
     } catch (err) {
       console.error(err);

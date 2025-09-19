@@ -8,7 +8,7 @@ const getAuthHeader = () => {
 
 // Create a new order
 export const createOrder = async (order) => {
-  const res = await fetch("http://localhost:5000/api/orders", {
+  const res = await fetch("https://lamaki-backend.vercel.app/api/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const createOrder = async (order) => {
 
 // Get all orders for the logged-in user
 export const getOrders = async () => {
-  const res = await fetch("http://localhost:5000/api/orders", {
+  const res = await fetch("https://lamaki-backend.vercel.app/api/orders", {
     headers: getAuthHeader(),
   });
   if (!res.ok) {
@@ -37,7 +37,7 @@ export const getOrders = async () => {
 
 // Get a specific order by ID (only if it belongs to the user)
 export const getOrderById = async (id) => {
-  const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+  const res = await fetch(`https://lamaki-backend.vercel.app/api/orders/${id}`, {
     headers: getAuthHeader(),
   });
   if (!res.ok) {
@@ -49,7 +49,7 @@ export const getOrderById = async (id) => {
 
 // Update an order (like status or payment info)
 export const updateOrder = async (id, updatedFields) => {
-  const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+  const res = await fetch(`https://lamaki-backend.vercel.app/api/orders/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export const updateOrder = async (id, updatedFields) => {
 
 // Delete an order
 export const deleteOrder = async (id) => {
-  const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+  const res = await fetch(`https://lamaki-backend.vercel.app/api/orders/${id}`, {
     method: "DELETE",
     headers: getAuthHeader(),
   });

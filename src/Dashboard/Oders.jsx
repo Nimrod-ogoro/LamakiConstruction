@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchAPI } from "../config/api"; // ✅ import helper
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -9,8 +10,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/orders");
-      const data = await res.json();
+      const data = await fetchAPI("/api/orders"); // ✅ use helper
       setOrders(data);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -51,5 +51,7 @@ const Orders = () => {
 };
 
 export default Orders;
+
+
 
 

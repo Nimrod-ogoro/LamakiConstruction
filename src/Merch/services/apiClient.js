@@ -1,5 +1,5 @@
 // client/src/services/apiClient.js
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://lamaki-backend.vercel.app";
 
 export async function apiClient(url, options = {}) {
   const token = localStorage.getItem("token");
