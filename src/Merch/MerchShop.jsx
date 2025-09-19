@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchProducts } from "./services/productService";
+import { fetchProducts } from "./services/ProductService";
 import { getCart, addToCart as addToCartService } from "./services/CartService";
-import AuthModal from "../components/authModal";
+import AuthModal from "../components/AuthModal";
 
 export default function MerchShop() {
   const [products, setProducts] = useState([]);
