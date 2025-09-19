@@ -42,7 +42,7 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isLogin ? "/auth/login" : "/auth/register";
+    const url = isLogin ? "/api/auth/login" : "/api/auth/register";
 
     try {
       const res = await fetchAPI.post(url, formData, { withCredentials: true });
@@ -51,7 +51,7 @@ const AuthModal = ({ open, onClose }) => {
       // ✅ If signup didn’t return a token, auto-login
       if (!token && !isLogin) {
         const loginRes = await fetchAPI.post(
-          "/auth/login",
+          "/api/auth/login",
           { email: formData.email, password: formData.password },
           { withCredentials: true }
         );
