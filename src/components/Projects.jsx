@@ -1,58 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { fetchAPI } from "../api"; // ✅ global API helper
+import { fetchAPI } from "../api";
 
 const staticProjects = [
   {
-    img: ["/img-16.jpg", "/img-17.jpg", "/img-18.jpg", "/img-19.jpg", "/img-20.jpg", "/img-21.jpg", "/img-22.jpg", "/img-23.jpg"],
-    description: ["Flat roof bungalow", "Modern kitchen", "Guest house", "Electric fence", "Modern interior design and lighting"]
+    img: ["/img-16.jpg","/img-17.jpg","/img-18.jpg","/img-19.jpg","/img-20.jpg","/img-21.jpg","/img-22.jpg","/img-23.jpg"],
+    description: ["Flat roof bungalow","Modern kitchen","Guest house","Electric fence","Modern interior design and lighting"]
   },
   {
-    img: ["/img-6.jpg", "/img-7.jpg", "/img-8.jpg", "/img-1.jpg", "/img-2.jpg", "/img-3.jpg", "/img-4.jpg", "/img-5.jpg", "/img-9.jpg", "/img-10.jpg", "/img-11.jpg", "/img-12.jpg"],
-    description: ["Spacious modern bungalow", "Modern kitchen", "Modern interior design and lighting"]
+    img: ["/img-6.jpg","/img-7.jpg","/img-8.jpg","/img-1.jpg","/img-2.jpg","/img-3.jpg","/img-4.jpg","/img-5.jpg","/img-9.jpg","/img-10.jpg","/img-11.jpg","/img-12.jpg"],
+    description: ["Spacious modern bungalow","Modern kitchen","Modern interior design and lighting"]
   },
   {
-    img: ["img-28.jpg", "img-29.jpg", "img-30.jpg", "img-31.jpg", "img-32.jpg"],
-    description: ["Modern flat roof mansion", "Modern interior design and lighting", "Modern kitchen", "Double roof design"]
+    img: ["img-28.jpg","img-29.jpg","img-30.jpg","img-31.jpg","img-32.jpg"],
+    description: ["Modern flat roof mansion","Modern interior design and lighting","Modern kitchen","Double roof design"]
   }
 ];
 
-const Projects  = () => {
+const Projects = () => {
   const [projects, setProjects] = useState(staticProjects);
-  const [currentIndexes, setCurrentIndexes] = useState(projects.map(() => 0));
+  const [currentIndexes, setCurrentIndexes] = useState(staticProjects.map(() => 0));
   const [lightbox, setLightbox] = useState({ isOpen: false, images: [], index: 0 });
 
-  // ✅ Fetch dynamic projects from backend
+  /* ---------- helper ---------- */
+  const safe = (arr) => (Array.isArray(arr) ? arr : []);
+
+  /* ---------- fetch ---------- */
   useEffect(() => {
-    fetchAPI("/projects")
+    fetchAPI("/api/projects")
+      .then((res) => res.json())          // <- parse JSON
       .then((data) => {
-        const formatted = data.map(p => ({
-          img: p.images.map(i => fetchAPI(`/uploads/${i}`, false)), // ✅ use helper (false = return raw URL if you coded it like that)
+        const formatted = safe(data).map((p) => ({
+          img:  safe(p.images).map((i) => `/uploads/${i}`),
           description: Array.isArray(p.description) ? p.description : [p.description]
         }));
-        setProjects([...staticProjects, ...formatted]); // merge static + dynamic
-        setCurrentIndexes([...staticProjects, ...formatted].map(() => 0));
+        const merged = [...staticProjects, ...formatted];
+        setProjects(merged);
+        setCurrentIndexes(merged.map(() => 0));
       })
-      .catch(err => console.error("❌ Fetch projects failed:", err));
+      .catch((err) => console.error("❌ Fetch projects failed:", err));
   }, []);
 
-  // Auto-slide every 3s
+  /* ---------- slideshow ---------- */
   useEffect(() => {
-    const interval = setInterval(() => {
+    const id = setInterval(() => {
       setCurrentIndexes((prev) =>
-        prev.map((idx, projIndex) =>
-          (idx + 1) % projects[projIndex].img.length
-        )
+        prev.map((idx, i) => (idx + 1) % projects[i].img.length)
       );
     }, 3000);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, [projects]);
 
+  /* ---------- lightbox ---------- */
   const openLightbox = (images, index) => setLightbox({ isOpen: true, images, index });
   const closeLightbox = () => setLightbox({ ...lightbox, isOpen: false });
-  const prevImage = () => setLightbox((prev) => ({ ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }));
-  const nextImage = () => setLightbox((prev) => ({ ...prev, index: (prev.index + 1) % prev.images.length }));
+  const prevImage = () => setLightbox((p) => ({ ...p, index: (p.index - 1 + p.images.length) % p.images.length }));
+  const nextImage = () => setLightbox((p) => ({ ...p, index: (p.index + 1) % p.images.length }));
 
   return (
     <section id="projects" className="projects">
@@ -62,7 +66,7 @@ const Projects  = () => {
       </div>
 
       <div className="gallery">
-        {projects.map((proj, index) => (
+        {safe(projects).map((proj, index) => (
           <Card key={index} className="projects-card-gallery">
             <CardContent className="project-card-content">
               <div className="project-image-single">
@@ -73,8 +77,8 @@ const Projects  = () => {
                 />
               </div>
               <ul className="project-description">
-                {proj.description.map((desc, descIndex) => (
-                  <li key={descIndex}>{desc}</li>
+                {safe(proj.description).map((desc, i) => (
+                  <li key={i}>{desc}</li>
                 ))}
               </ul>
             </CardContent>
