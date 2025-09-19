@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./services/ProductService";
 import { getCart, addToCart as addToCartService } from "./services/CartService";
 import AuthModal from "../components/AuthModal";
-import { fetchAPI } from "../api"; // ✅ added import
 
 export default function MerchShop() {
   const [products, setProducts] = useState([]);
@@ -132,7 +131,7 @@ export default function MerchShop() {
             <div style={plainCSS.card} key={p.id}>
               {p.image_url && (
                 <img
-                  src={`${fetchAPI}${p.image_url}`} // ✅ replaced localhost with fetchAPI
+                  src={p.image_url} // ✅ use the full URL directly
                   alt={p.name}
                   style={plainCSS.cardImg}
                 />
@@ -154,3 +153,4 @@ export default function MerchShop() {
     </>
   );
 }
+
