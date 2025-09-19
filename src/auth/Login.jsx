@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../hooks/useAuth"
-import './Auth.css'; // re-use the blue-maroon styles
+import './auth.css'; // re-use the blue-maroon styles
 
 const Login = () => {
   const navigate = useNavigate();
