@@ -25,7 +25,7 @@ import { AuthProvider } from './auth/AuthContext'
 
 const App = () => {
   return (
-   <BrowserRouter>
+   <BrowserRouter basename='/'>
    <AuthProvider>
     <Routes>
       <Route path="/" element={<Index/>} /> 
