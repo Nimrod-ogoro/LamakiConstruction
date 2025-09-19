@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchAPI } from "../config/api"; // ✅ only added import
+import { fetchAPI } from "../api"; // ✅ only added import
 
 const Products = () => {
   const [form, setForm] = useState({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { fetchAPI } from "../config/api"; // ✅ global API helper
+import { fetchAPI } from "../api"; // ✅ global API helper
 
 const staticProjects = [
   {

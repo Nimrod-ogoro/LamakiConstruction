@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAPI } from "../config/api"; // ✅ use your global API helper
+import { fetchAPI } from "../api"; // ✅ use your global API helper
 
 const AuthModal = ({ open, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);

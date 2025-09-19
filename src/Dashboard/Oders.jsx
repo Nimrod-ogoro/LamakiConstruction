@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAPI } from "../config/api"; // ✅ import helper
+import { fetchAPI } from "../api"; // ✅ import helper
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);

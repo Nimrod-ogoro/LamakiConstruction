@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, updateQty, removeFromCart } from "./services/CartService";
-import { fetchAPI } from "../config/api"; // ✅ import API base
+import { fetchAPI } from "../api"; // ✅ import API base
 import Footer from "../components/Footer";   //  keep your existing Footer component
 
 export default function Cart() {

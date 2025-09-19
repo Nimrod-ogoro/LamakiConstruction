@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./services/ProductService";
 import { getCart, addToCart as addToCartService } from "./services/CartService";
 import AuthModal from "../components/AuthModal";
-import { fetchAPI } from "../config/api"; // ✅ added import
+import { fetchAPI } from "../api"; // ✅ added import
 
 export default function MerchShop() {
   const [products, setProducts] = useState([]);

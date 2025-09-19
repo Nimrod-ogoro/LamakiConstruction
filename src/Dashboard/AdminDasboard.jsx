@@ -3,7 +3,7 @@ import AddProjects from "./AddProjects";
 import AddProducts from "./AddProducts";
 import Users from "./Users";
 import Oders from "./Oders";
-import { fetchAPI } from "../config/api"; // ✅ use your helper
+import { fetchAPI } from "../api"; // ✅ use your helper
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchAPI } from "../config/api"; // ✅ use global API helper
+import { fetchAPI } from "../api"; // ✅ use global API helper
 
 const Products = () => {
   const [form, setForm] = useState({

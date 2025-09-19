@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { createOrder } from "./services/OrderService";
 import { initiateMpesaPayment } from "./services/Mpesa";
-import { fetchAPI } from "../config/api"; // ✅ import API base
+import { fetchAPI } from "../api"; // ✅ import API base
 import Footer from "../components/Footer";
 
 /* ---------- cart-style nav-bar ---------- */
