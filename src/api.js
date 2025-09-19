@@ -1,16 +1,17 @@
+// src/config/api.js
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const baseURL = import.meta.env.VITE_API_URL?.trim() || "http://localhost:5000/api";
 
-export default axios.create({
-  baseURL,
-});
+/* ---------- axios instance (optional) ---------- */
+export const api = axios.create({ baseURL });
 
-// src/config/api.js   (same folder as axios file)
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+/* ---------- fetch helper ---------- */
+export const fetchAPI = (endpoint, options = {}, raw = false) => {
+  const isFormData = options.body instanceof FormData;
+  const headers = raw || isFormData
+    ? options.headers || {}                 // let browser set Content-Type + boundary
+    : { "Content-Type": "application/json", ...options.headers };
 
-export const fetchAPI = (endpoint, options = {}) =>
-  fetch(`${API_URL}${endpoint}`, {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
-    ...options,
-  });
+  return fetch(`${baseURL}${endpoint}`, { ...options, headers });
+};
