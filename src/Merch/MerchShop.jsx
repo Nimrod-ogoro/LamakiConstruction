@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./services/ProductService";
 import { getCart, addToCart as addToCartService } from "./services/CartService";
 import AuthModal from "../components/AuthModal";
+import { fetchAPI } from "../api"; // ✅ added import
 
 export default function MerchShop() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [authOpen, setAuthOpen] = useState(false);
   const navigate = useNavigate();
-
-  const baseURL = import.meta.env.VITE_API_URL; // ✅ base URL only
 
   const token = localStorage.getItem("token");
   const isLoggedIn = token;
@@ -32,6 +31,8 @@ export default function MerchShop() {
     }
     try {
       await addToCartService(product.id, 1);
+
+      /*  ✔️  store real item in localStorage  */
       const item = {
         cart_id: Date.now(),
         product_id: product.id,
@@ -52,8 +53,67 @@ export default function MerchShop() {
     }
   };
 
-  /* ====== styles ====== */
-  const plainCSS = { /* your styles */ };
+  /* ====== your existing inline styles ====== */
+  const plainCSS = {
+    header: {
+      background: "#cce5ff",
+      color: "#333",
+      padding: "15px 20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderBottom: "2px solid #800000",
+    },
+    btnPrimary: {
+      background: "#800000",
+      color: "#fff",
+      border: "none",
+      borderRadius: "4px",
+      padding: "6px 12px",
+      cursor: "pointer",
+    },
+    btnSecondary: {
+      background: "#ffffff",
+      color: "#800000",
+      border: "1px solid #800000",
+      borderRadius: "4px",
+      padding: "6px 12px",
+      cursor: "pointer",
+    },
+    container: { maxWidth: "1100px", margin: "20px auto", padding: "0 15px" },
+    products: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+      gap: "20px",
+      marginTop: "20px",
+    },
+    card: {
+      background: "#ffffff",
+      border: "1px solid #99ccff",
+      borderRadius: "6px",
+      padding: "15px",
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
+    },
+    cardImg: {
+      width: "100%",
+      height: "160px",
+      objectFit: "cover",
+      borderRadius: "4px",
+      marginBottom: "10px",
+      background: "#e6f2ff",
+    },
+    cardTitle: { margin: "8px 0", fontSize: "16px", color: "#004d99" },
+    cardDesc: { fontSize: "13px", marginBottom: "10px", color: "#555" },
+    price: {
+      fontWeight: "bold",
+      fontSize: "15px",
+      color: "#800000",
+      marginBottom: "10px",
+    },
+    actions: { display: "flex", gap: "8px", marginTop: "auto" },
+  };
 
   return (
     <>
@@ -72,7 +132,7 @@ export default function MerchShop() {
             <div style={plainCSS.card} key={p.id}>
               {p.image_url && (
                 <img
-                  src={`${baseURL}${p.image_url}`} // ✅ base URL + path
+                  src={`${fetchAPI}${p.image_url}`} // ✅ replaced localhost with fetchAPI
                   alt={p.name}
                   style={plainCSS.cardImg}
                 />
