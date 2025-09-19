@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAPI } from "../api"; // ✅ use your global API helper
+import { fetchAPI } from "../api";
 
 const AuthModal = ({ open, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,12 +11,10 @@ const AuthModal = ({ open, onClose }) => {
   });
   const navigate = useNavigate();
 
-  // ✅ Handle token & user returned from Google redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
     const user = params.get("user");
-
     if (token) {
       localStorage.setItem("token", token);
       try {
@@ -42,19 +40,18 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isLogin ? "/auth/login" : "/auth/register";
+    const url = isLogin ? "/api/auth/login" : "/api/auth/register"; // ✅ added /api
 
     try {
       const res = await fetchAPI(url, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // if backend uses cookies
+        credentials: "include",
       });
       const data = await res.json();
       let { token, user } = data;
 
-      // ✅ If signup didn’t return a token, auto-login
       if (!token && !isLogin) {
         const loginRes = await fetchAPI("/api/auth/login", {
           method: "POST",
@@ -89,67 +86,26 @@ const AuthModal = ({ open, onClose }) => {
   return (
     <div className="auth-backdrop">
       <div className="auth-modal">
-        <button className="close-btn" onClick={onClose}>
-          ×
-        </button>
-
+        <button className="close-btn" onClick={onClose}>×</button>
         <div className="auth-tabs">
-          <button
-            className={isLogin ? "active" : ""}
-            onClick={() => setIsLogin(true)}
-          >
-            Login
-          </button>
-          <button
-            className={!isLogin ? "active" : ""}
-            onClick={() => setIsLogin(false)}
-          >
-            Signup
-          </button>
+          <button className={isLogin ? "active" : ""} onClick={() => setIsLogin(true)}>Login</button>
+          <button className={!isLogin ? "active" : ""} onClick={() => setIsLogin(false)}>Signup</button>
         </div>
-
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
           )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="submit-btn">
-            {isLogin ? "Login" : "Signup"}
-          </button>
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+          <button type="submit" className="submit-btn">{isLogin ? "Login" : "Signup"}</button>
         </form>
-
-        <button className="google-btn" onClick={handleGoogleAuth}>
-          {isLogin ? "Login with Google" : "Signup with Google"}
-        </button>
+        <button className="google-btn" onClick={handleGoogleAuth}>{isLogin ? "Login with Google" : "Signup with Google"}</button>
       </div>
     </div>
   );
 };
 
 export default AuthModal;
-
 
 
 
