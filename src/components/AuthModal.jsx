@@ -40,7 +40,7 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isLogin ? "/api/auth/login" : "/api/auth/register"; // ✅ added /api
+    const url = isLogin ? "/auth/login" : "/auth/register"; // ✅ added /api
 
     try {
       const res = await fetchAPI(url, {
@@ -53,7 +53,7 @@ const AuthModal = ({ open, onClose }) => {
       let { token, user } = data;
 
       if (!token && !isLogin) {
-        const loginRes = await fetchAPI("/api/auth/login", {
+        const loginRes = await fetchAPI("/auth/login", {
           method: "POST",
           body: JSON.stringify({ email: formData.email, password: formData.password }),
           headers: { "Content-Type": "application/json" },
