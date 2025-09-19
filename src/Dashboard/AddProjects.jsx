@@ -29,7 +29,7 @@ const AddProject = () => {
 
     try {
       const res = await fetchAPI(
-        "/projects",
+        "/api/projects",
         {
           method: "POST",
           body: formDataToSend,

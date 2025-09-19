@@ -27,7 +27,7 @@ const Products = () => {
       if (form.image) formData.append("image", form.image);
 
       // ✅ Use fetchAPI in raw mode (skip JSON header handling)
-      const res = await fetchAPI("/products", {
+      const res = await fetchAPI("/api/products", {
         method: "POST",
         body: formData,
       }, true); // <-- pass true to signal raw FormData (if your helper supports it)
