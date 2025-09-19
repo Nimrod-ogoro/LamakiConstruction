@@ -73,8 +73,10 @@ const AuthModal = ({ open, onClose }) => {
     }
   };
 
+  // ✅ FIXED: Use your environment variable directly instead of fetchAPI.defaults
   const handleGoogleAuth = () => {
-    window.location.href = `${fetchAPI.defaults.baseURL}/auth/google`;
+    const baseURL = import.meta.env.VITE_API_URL?.trim() || "http://localhost:5000/api";
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   return (
@@ -140,6 +142,7 @@ const AuthModal = ({ open, onClose }) => {
 };
 
 export default AuthModal;
+
 
 
 
