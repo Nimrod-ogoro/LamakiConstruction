@@ -1,32 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Orders = () => {
-  const orders = [
-    { id: 1, product: "Helmet", user: "John Doe", status: "Pending" },
-    { id: 2, product: "Safety Vest", user: "Jane Smith", status: "Completed" },
-  ];
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/orders");
+      const data = await res.json();
+      setOrders(data);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+    }
+  };
 
   return (
-    <div>
-      <h2>Orders</h2>
-      <table className="table">
+    <div className="admin-container">
+      <h2>🛒 Orders</h2>
+      <table className="admin-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Product</th>
+            <th>Order ID</th>
             <th>User</th>
+            <th>Total</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((o) => (
-            <tr key={o.id}>
-              <td>{o.id}</td>
-              <td>{o.product}</td>
-              <td>{o.user}</td>
-              <td>{o.status}</td>
+          {orders.length > 0 ? (
+            orders.map((o) => (
+              <tr key={o.id}>
+                <td>{o.id}</td>
+                <td>{o.user_name}</td>
+                <td>{o.total}</td>
+                <td>{o.status}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">No orders found</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
@@ -34,4 +51,5 @@ const Orders = () => {
 };
 
 export default Orders;
+
 

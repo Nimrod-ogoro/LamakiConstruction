@@ -8,7 +8,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="footer-company">
             <div className="footer-logo">
-              <img src="logo.png" alt="logo"  className="logo"/>
+             <a href="/#home"><img src="logo.png" alt="logo" className="logo"/></a> 
               <h1>Lamaki Designs</h1>
             </div>
             <p className="footer-description">
@@ -27,10 +27,10 @@ const Footer = () => {
           <div className="footer-section">
             <h3 className="footer-heading">Services</h3>
             <ul className="footer-list">
-              <li><a href="#">Residential Construction</a></li>
-              <li><a href="#">Commercial Building</a></li>
-              <li><a href="#">Renovations</a></li>
-              <li><a href="#">Project Management</a></li>
+              <li><a href="/Residential">Residential Construction</a></li>
+              <li><a href="/Commercial">Commercial Building</a></li>
+              <li><a href="/Renovations">Renovations</a></li>
+              <li><a href="/ProjectManagement">Project Management</a></li>
             </ul>
           </div>
 
@@ -38,9 +38,9 @@ const Footer = () => {
           <div className="footer-section">
             <h3 className="footer-heading">Contact</h3>
             <ul className="footer-list">
-              <li>(254) 0796643331</li>
-              <li>nimrodogoro@gmail.com</li>
-              <li>123 Construction Ave<br />Nairobi, Kenya</li>
+              <li> (+254) 113710584</li>
+              <li>lamakidesignsltd@gmail.com</li>
+              <li>Githunguri<br />Nairobi, Kenya</li>
             </ul>
           </div>
 
@@ -59,11 +59,11 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2025 build by Nimrod Ogoro. All rights reserved.</p>
+          <p>© 2025 Lamaki Designs. All rights reserved.</p>
           <div className="footer-links">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
-            <a href="#">Sitemap</a>
+            <a href="https://share.google/o6ebulIrq8rs9BKRC">Sitemap</a>
           </div>
         </div>
       </div>

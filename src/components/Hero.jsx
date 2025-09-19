@@ -24,7 +24,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className='home'>
+    <section className='home' id='home'>
       <div className="fade-dark-container">
         {showVideo ? (
           <video

@@ -77,13 +77,13 @@ export default function Merch() {
 
   return (
     <>
-      <nav className="navbar merch-navbar">
+      <nav className="navbard merch-navbar">
         <div className="logo-container">
           <img src="logo.png" alt="Logo" className="logo" />
           <h1 className="title">Lamaki Designs</h1>
         </div>
 
-        <div className="desktop-nav">
+        <div className="desktop-navd">
           <div className="merch-cart">
             <ShoppingCart className="cart-icon" />
             <span className="cart-count">{cartCount}</span>
@@ -92,7 +92,7 @@ export default function Merch() {
           <button onClick={() => navigate('/CheckOut')} className="nav-button">CheckOut</button>
         </div>
 
-        <div className="mobile-nav">
+        <div className="mobile-navd">
           <div className="logo-container2">
             <img src="logo.png" alt="Logo" className="logo" />
             <h1 className="title">Lamaki Designs</h1>

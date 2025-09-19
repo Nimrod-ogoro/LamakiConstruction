@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./ui/Button";
 import { useNavigate } from "react-router";
+import { Link } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,9 +25,7 @@ const Navbar = () => {
 
       {/* Desktop Nav */}
       <div className="desktop-nav">
-        <Button href="#contact" variant="cta" size="sm">
-          Get Quote
-        </Button>
+      
 
         <button onClick={() => scrollToSection("about")} className="nav-button">
           About
@@ -49,12 +48,25 @@ const Navbar = () => {
         >
           Projects
         </button>
-        <button onClick={() => navigate("/Merchandise")} className="nav-button">
-          Merchandise
-        </button>
+        <button
+            onClick={() => navigate("/MerchShop")}
+            className="nav-button"
+          >
+            Merchandise
+          </button>
+          <button
+            onClick={() => navigate("/Login")}
+            className="nav-button"
+          >
+            Login
+          </button>
+          <Button href="#contact" variant="cta" size="sm" onClick={() => scrollToSection("contact")}>
+         Get Quote
+        </Button>
       </div>
 
       {/* Mobile Hamburger */}
+      
       <div
         className="hamburger"
         onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -92,10 +104,16 @@ const Navbar = () => {
             Projects
           </button>
           <button
-            onClick={() => navigate("/Merchandise")}
+            onClick={() => navigate("/MerchShop")}
             className="nav-button"
           >
             Merchandise
+          </button>
+          <button
+            onClick={() => navigate("/Login")}
+            className="nav-button"
+          >
+            Login
           </button>
         </div>
       )}

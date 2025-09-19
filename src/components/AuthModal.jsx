@@ -2,24 +2,39 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function AuthModal({ open, onClose }) {
+const AuthModal = ({ open, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
-  // ✅ Handle token from Google redirect
-    useEffect(() => {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get("token");
-      if (token) {
-        localStorage.setItem("token", token);
-        window.history.replaceState({}, document.title, window.location.pathname); // clean URL
-        onClose(); // close modal
-        navigate("/merchandise");
+  // ✅ Handle token & user returned from Google redirect
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const user = params.get("user");
+
+    if (token) {
+      localStorage.setItem("token", token);
+      try {
+        const parsedUser = user ? JSON.parse(decodeURIComponent(user)) : null;
+        if (parsedUser) {
+          localStorage.setItem("user", JSON.stringify(parsedUser));
+          if (parsedUser.id) localStorage.setItem("userId", parsedUser.id);
+        }
+      } catch (err) {
+        console.error("❌ Failed to parse Google user:", err);
       }
-    }, [navigate, onClose]);
-  
-    if (!open) return null;
+      window.history.replaceState({}, document.title, window.location.pathname);
+      onClose();
+      navigate("/MerchShop");
+    }
+  }, [navigate, onClose]);
+
+  if (!open) return null;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,17 +48,27 @@ export default function AuthModal({ open, onClose }) {
 
     try {
       const res = await axios.post(url, formData, { withCredentials: true });
+      let { token, user } = res.data;
 
-      // Assuming backend returns { token, user }
-      const { token, user } = res.data;
-
-      if (token) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+      // ✅ If signup didn’t return a token, auto-login
+      if (!token && !isLogin) {
+        const loginRes = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          { email: formData.email, password: formData.password },
+          { withCredentials: true }
+        );
+        token = loginRes.data.token;
+        user = loginRes.data.user;
       }
 
-      onClose(); // close modal
-      navigate("/merchandise"); // redirect
+      if (token) localStorage.setItem("token", token);
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.id) localStorage.setItem("userId", user.id);
+      }
+
+      onClose();
+      navigate("/MerchShop");
     } catch (err) {
       console.error("❌ Auth error:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Something went wrong");
@@ -51,22 +76,31 @@ export default function AuthModal({ open, onClose }) {
   };
 
   const handleGoogleAuth = () => {
-    // ✅ Full redirect flow to backend Google OAuth
     window.location.href = "http://localhost:5000/api/auth/google";
   };
 
   return (
     <div className="auth-backdrop">
       <div className="auth-modal">
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="close-btn" onClick={onClose}>
+          ×
+        </button>
 
-        {/* Tabs */}
         <div className="auth-tabs">
-          <button className={isLogin ? "active" : ""} onClick={() => setIsLogin(true)}>Login</button>
-          <button className={!isLogin ? "active" : ""} onClick={() => setIsLogin(false)}>Signup</button>
+          <button
+            className={isLogin ? "active" : ""}
+            onClick={() => setIsLogin(true)}
+          >
+            Login
+          </button>
+          <button
+            className={!isLogin ? "active" : ""}
+            onClick={() => setIsLogin(false)}
+          >
+            Signup
+          </button>
         </div>
 
-        {/* Form */}
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (
             <input
@@ -99,11 +133,14 @@ export default function AuthModal({ open, onClose }) {
           </button>
         </form>
 
-        {/* Google Auth */}
         <button className="google-btn" onClick={handleGoogleAuth}>
           {isLogin ? "Login with Google" : "Signup with Google"}
         </button>
       </div>
     </div>
   );
-}
+};
+
+export default AuthModal;
+
+
