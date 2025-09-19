@@ -18,7 +18,7 @@ import OrderSuccess from './Merch/orderSucces'
 import Login from './auth/Login'
 import SignUp from './auth/Signup'
 
-import { AuthProvider } from './auth/authContext'
+import { AuthProvider } from './auth/AuthContext'
 
 
 
