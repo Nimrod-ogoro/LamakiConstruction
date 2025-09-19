@@ -42,21 +42,29 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isLogin ? "/api/auth/login" : "/api/auth/register";
+    const url = isLogin ? "/auth/login" : "/auth/register";
 
     try {
-      const res = await fetchAPI.post(url, formData, { withCredentials: true });
-      let { token, user } = res.data;
+      const res = await fetchAPI(url, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // if backend uses cookies
+      });
+      const data = await res.json();
+      let { token, user } = data;
 
       // ✅ If signup didn’t return a token, auto-login
       if (!token && !isLogin) {
-        const loginRes = await fetchAPI.post(
-          "/api/auth/login",
-          { email: formData.email, password: formData.password },
-          { withCredentials: true }
-        );
-        token = loginRes.data.token;
-        user = loginRes.data.user;
+        const loginRes = await fetchAPI("/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email: formData.email, password: formData.password }),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+        const loginData = await loginRes.json();
+        token = loginData.token;
+        user = loginData.user;
       }
 
       if (token) localStorage.setItem("token", token);
@@ -68,12 +76,11 @@ const AuthModal = ({ open, onClose }) => {
       onClose();
       navigate("/MerchShop");
     } catch (err) {
-      console.error("❌ Auth error:", err.response?.data || err.message);
-      alert(err.response?.data?.message || "Something went wrong");
+      console.error("❌ Auth error:", err.message);
+      alert("Something went wrong");
     }
   };
 
-  // ✅ FIXED: Use your environment variable directly instead of fetchAPI.defaults
   const handleGoogleAuth = () => {
     const baseURL = import.meta.env.VITE_API_URL?.trim() || "http://localhost:5000/api";
     window.location.href = `${baseURL}/auth/google`;
@@ -142,6 +149,7 @@ const AuthModal = ({ open, onClose }) => {
 };
 
 export default AuthModal;
+
 
 
 
