@@ -63,11 +63,11 @@ const AdminDashboard = () => {
     return (
       <div>
         <h2>📊 Dashboard Overview</h2>
-        <div className="overview-cards">
+        <div className="overview-cardds">
           {tables.map((key) => (
-            <div className="card" key={key}>
-              <h3>{key}</h3>
-              <p>{overviewData[key].length}</p>
+            <div className="cardd" key={key}>
+              <h3 className="h3">{key}</h3>
+              <p>{safe(overviewData[key]).length}</p>
             </div>
           ))}
         </div>
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
         <div className="data-tables">
           {tables.map((table) => (
             <section key={table}>
-              <h3>All {table}</h3>
+              <h3 className="h3">All {table}</h3>
               <ul>
                 {safe(overviewData[table]).map((item) => (
                   <li key={item.id}>
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
   return (
     <div className="admin-layout">
       <aside className="sidebar">
-        <h2>Admin</h2>
+        <h2 className="h2">Admin</h2>
         <ul>
           {["dashboard", "projects", "products", "users", "orders"].map((s) => (
             <li key={s} onClick={() => setActiveSection(s)}>
@@ -121,7 +121,7 @@ const AdminDashboard = () => {
 
       <main className="main-content">
         <header className="topbar">
-          <h1>Admin Panel</h1>
+          <h1 className="h1">Admin Panel</h1>
         </header>
         <section className="overview">{renderContent()}</section>
       </main>
