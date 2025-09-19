@@ -15,8 +15,9 @@ import MerchShop from './Merch/MerchShop'
 import Checkout from './Merch/CheckOut'
 import Cart from './Merch/Cart'
 import OrderSuccess from './Merch/orderSucces'
-import Login from './auth/login'
-import SignUp from './auth/signup'
+import Login from './auth/Login'
+import SignUp from './auth/Signup'
+
 import { AuthProvider } from './auth/authContext'
 
 
