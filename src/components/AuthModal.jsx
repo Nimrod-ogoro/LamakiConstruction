@@ -56,7 +56,7 @@ const AuthModal = ({ open, onClose }) => {
 
       // ✅ If signup didn’t return a token, auto-login
       if (!token && !isLogin) {
-        const loginRes = await fetchAPI("/auth/login", {
+        const loginRes = await fetchAPI("/api/auth/login", {
           method: "POST",
           body: JSON.stringify({ email: formData.email, password: formData.password }),
           headers: { "Content-Type": "application/json" },
