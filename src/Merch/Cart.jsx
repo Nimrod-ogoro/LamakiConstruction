@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, updateQty, removeFromCart } from "./services/CartService";
-import { fetchAPI } from "../api"; // ✅ import API base
-import Footer from "../components/Footer";   //  keep your existing Footer component
+
+import Footer from "../components/Footer";
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
@@ -17,7 +17,6 @@ export default function Cart() {
       .then((data) => {
         console.log("🛒 cart from storage", data);
         setCart(data);
-        /*  ✔️  keep localStorage in sync on load  */
         localStorage.setItem("cart", JSON.stringify(data));
         setLoading(false);
       })
@@ -28,7 +27,6 @@ export default function Cart() {
     if (qty < 1) return;
     await updateQty(cartId, qty, token);
     const updated = await getCart(token);
-    /*  ✔️  keep localStorage in sync  */
     localStorage.setItem("cart", JSON.stringify(updated));
     setCart(updated);
   };
@@ -36,7 +34,6 @@ export default function Cart() {
   const handleRemove = async (cartId) => {
     await removeFromCart(cartId, token);
     const updated = await getCart(token);
-    /*  ✔️  keep localStorage in sync  */
     localStorage.setItem("cart", JSON.stringify(updated));
     setCart(updated);
   };
@@ -55,7 +52,7 @@ export default function Cart() {
     alignItems: "center",
     justifyContent: "space-between",
   };
-  const logoStyle = { height: "50px", cursor: "pointer", width:"50px" };
+  const logoStyle = { height: "50px", cursor: "pointer", width: "50px" };
   const backBtn = {
     background: "#ffffff",
     color: "#800000",
@@ -71,7 +68,8 @@ export default function Cart() {
     return (
       <>
         <div style={inlineBar}>
-          <img src="/logo.png" alt="Logo" style={logoStyle} onClick={() => nav("/MerchShop")} /><h1 className="logo-title d" style={logoTitle}>Lamaki Designs</h1>
+          <img src="/logo.png" alt="Logo" style={logoStyle} onClick={() => nav("/MerchShop")} />
+          <h1 className="logo-title d" style={logoTitle}>Lamaki Designs</h1>
           <button style={backBtn} onClick={() => nav("/MerchShop")}>Back to Shopping</button>
         </div>
         <div className="cart-container">
@@ -125,7 +123,7 @@ export default function Cart() {
           {cart.map((item) => (
             <div className="cart-item" key={item.cart_id}>
               {item.image_url && (
-                <img src={`${fetchAPI}${item.image_url}`} alt={item.name} /> 
+                <img src={item.image_url} alt={item.name} className="cart-item-img" />
               )}
               <div className="cart-info">
                 <h4>{item.name}</h4>

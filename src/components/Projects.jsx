@@ -13,7 +13,7 @@ const staticProjects = [
     description: ["Spacious modern bungalow","Modern kitchen","Modern interior design and lighting"]
   },
   {
-    img: ["img-28.jpg","img-29.jpg","img-30.jpg","img-31.jpg","img-32.jpg"],
+    img: ["img-28.jpg","img-29.jpg","/img-30.jpg","/img-31.jpg","/img-32.jpg"],
     description: ["Modern flat roof mansion","Modern interior design and lighting","Modern kitchen","Double roof design"]
   }
 ];
@@ -23,16 +23,14 @@ const Projects = () => {
   const [currentIndexes, setCurrentIndexes] = useState(staticProjects.map(() => 0));
   const [lightbox, setLightbox] = useState({ isOpen: false, images: [], index: 0 });
 
-  /* ---------- helper ---------- */
   const safe = (arr) => (Array.isArray(arr) ? arr : []);
 
-  /* ---------- fetch ---------- */
   useEffect(() => {
     fetchAPI("/api/projects")
-      .then((res) => res.json())          // <- parse JSON
+      .then((res) => res.json())
       .then((data) => {
         const formatted = safe(data).map((p) => ({
-          img:  safe(p.images).map((i) => `/uploads/${i}`),
+          img:  safe(p.images).map((i) => i.startsWith("http") ? i : `/uploads/${i}`),
           description: Array.isArray(p.description) ? p.description : [p.description]
         }));
         const merged = [...staticProjects, ...formatted];
@@ -42,7 +40,6 @@ const Projects = () => {
       .catch((err) => console.error("❌ Fetch projects failed:", err));
   }, []);
 
-  /* ---------- slideshow ---------- */
   useEffect(() => {
     const id = setInterval(() => {
       setCurrentIndexes((prev) =>
@@ -52,7 +49,6 @@ const Projects = () => {
     return () => clearInterval(id);
   }, [projects]);
 
-  /* ---------- lightbox ---------- */
   const openLightbox = (images, index) => setLightbox({ isOpen: true, images, index });
   const closeLightbox = () => setLightbox({ ...lightbox, isOpen: false });
   const prevImage = () => setLightbox((p) => ({ ...p, index: (p.index - 1 + p.images.length) % p.images.length }));
