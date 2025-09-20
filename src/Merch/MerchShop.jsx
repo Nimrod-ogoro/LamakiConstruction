@@ -55,7 +55,7 @@ export default function MerchShop() {
   /* ====== your existing inline styles ====== */
   const plainCSS = {
     header: {
-      background: "#cce5ff",
+      background: "#ECF8F9",
       color: "#333",
       padding: "15px 20px",
       display: "flex",
@@ -112,11 +112,13 @@ export default function MerchShop() {
       marginBottom: "10px",
     },
     actions: { display: "flex", gap: "8px", marginTop: "auto" },
+    logo:{ height: "40px" , cursor: "pointer" }
   };
 
   return (
     <>
       <header style={plainCSS.header}>
+        <img src="/logo.png" alt="Lamaki Designs Logo"  onClick={() => navigate("/")} style={plainCSS.logo} />
         <h1>Lamaki Designs</h1>
         <div>
           <button style={plainCSS.btnSecondary} onClick={() => navigate("/Cart")}>
@@ -138,7 +140,7 @@ export default function MerchShop() {
               )}
               <h3 style={plainCSS.cardTitle}>{p.name}</h3>
               <p style={plainCSS.cardDesc}>{p.description}</p>
-              <div style={plainCSS.price}>${Number(p.price ?? 0).toFixed(2)}</div>
+              <div style={plainCSS.price}>ksh{Number(p.price ?? 0).toFixed(2)}</div>
               <div style={plainCSS.actions}>
                 <button style={plainCSS.btnPrimary} onClick={() => addToCart(p)}>
                   Add to Cart

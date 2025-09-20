@@ -127,7 +127,7 @@ export default function Cart() {
               )}
               <div className="cart-info">
                 <h4>{item.name}</h4>
-                <div className="cart-price">${Number(item.price || 0).toFixed(2)} each</div>
+                <div className="cart-price">ksh{Number(item.price || 0).toFixed(2)} each</div>
               </div>
 
               <div className="cart-actions">
@@ -139,7 +139,7 @@ export default function Cart() {
             </div>
           ))}
 
-          <div className="cart-total">Total: ${total.toFixed(2)}</div>
+          <div className="cart-total">Total: ksh{total.toFixed(2)}</div>
           <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
           <div style={{ clear: "both" }} />
         </div>

@@ -148,15 +148,15 @@ export default function Checkout() {
                     <span>{item.name}</span>
                   </td>
                   <td>{item.quantity}</td>
-                  <td>${Number(item.price || 0).toFixed(2)}</td>
-                  <td>${(item.quantity * Number(item.price || 0)).toFixed(2)}</td>
+                  <td>ksh{Number(item.price || 0).toFixed(2)}</td>
+                  <td>ksh{(item.quantity * Number(item.price || 0)).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
                 <td colSpan="3">Total</td>
-                <td className="total-cell">${total.toFixed(2)}</td>
+                <td className="total-cell">ksh{total.toFixed(2)}</td>
               </tr>
             </tfoot>
           </table>
