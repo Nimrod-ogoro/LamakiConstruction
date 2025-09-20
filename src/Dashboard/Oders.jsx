@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAPI } from "../api"; // ✅ import helper
+import { fetchAPI } from "../api";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,7 +10,8 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const data = await fetchAPI("/api/orders"); // ✅ use helper
+      const res = await fetchAPI("/api/orders");
+      const data = await res.json();
       setOrders(data);
     } catch (err) {
       console.error("Error fetching orders:", err);

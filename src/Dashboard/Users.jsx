@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAPI } from "../api"; // ✅ import your API base
+import { fetchAPI } from "../api";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +10,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${fetchAPI}/api/auth/users`); // ✅ replaced localhost
+      const res = await fetchAPI("/api/auth/users");
       const data = await res.json();
       setUsers(data);
     } catch (err) {
