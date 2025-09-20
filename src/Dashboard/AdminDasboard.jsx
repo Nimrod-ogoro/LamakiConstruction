@@ -14,7 +14,6 @@ const AdminDashboard = () => {
     orders: [],
   });
 
-  /* ---------- helper ---------- */
   const safe = (arr) => (Array.isArray(arr) ? arr : []);
 
   useEffect(() => {
