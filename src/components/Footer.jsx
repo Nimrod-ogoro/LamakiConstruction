@@ -13,13 +13,13 @@ const Footer = () => {
             </div>
             <p className="footer-description">
               Professional construction services for residential and commercial projects.
-              Building excellence since 1998 with quality craftsmanship and exceptional service.
+              Building excellence since 2014 with quality craftsmanship and exceptional service.
             </p>
             <div className="footer-socials">
-              <Facebook className="social-icon" />
-              <Twitter className="social-icon" />
-              <Instagram className="social-icon" />
-              <Linkedin className="social-icon" />
+              <Facebook className="social-icon" href="https://www.facebook.com/LamakiDesignsandConstruction" />
+              <Twitter className="social-icon" href="#" />
+              <Instagram className="social-icon" href="https://www.instagram.com/lamaki_designs/" />
+              <Linkedin className="social-icon" href="#" />
             </div>
           </div>
 

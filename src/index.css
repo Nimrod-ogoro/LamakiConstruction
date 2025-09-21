@@ -2165,7 +2165,7 @@ auth modal==============================*/
   position: sticky;
   top: 0;
   z-index: 999;
-  background: #1e40af; /* dominant blue */
+  background: #ECF8F9; /* dominant blue */
   color: #ffffff;
   padding: 1rem 1.5rem;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);

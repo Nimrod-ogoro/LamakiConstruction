@@ -28,9 +28,7 @@ export default function OrderSuccess() {
           </p>
 
           <div className="success-actions">
-            <button className="btn-success btn-primary" onClick={() => nav('/orders')}>
-              View My Orders
-            </button>
+            
             <button className="btn-success btn-secondary" onClick={() => nav('/')}>
               Continue Shopping
             </button>

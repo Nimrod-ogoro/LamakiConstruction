@@ -5,15 +5,15 @@ import { fetchAPI } from "../api";
 
 const staticProjects = [
   {
-    img: ["/img-16.jpg","/img-17.jpg","/img-18.jpg","/img-19.jpg","/img-20.jpg","/img-21.jpg","/img-22.jpg","/img-23.jpg"],
+    img: ["https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-14.JPG","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-17.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-18.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-19.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-20.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-21.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-22.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-23.jpg"],
     description: ["Flat roof bungalow","Modern kitchen","Guest house","Electric fence","Modern interior design and lighting"]
   },
   {
-    img: ["/img-6.jpg","/img-7.jpg","/img-8.jpg","/img-1.jpg","/img-2.jpg","/img-3.jpg","/img-4.jpg","/img-5.jpg","/img-9.jpg","/img-10.jpg","/img-11.jpg","/img-12.jpg"],
+    img: ["https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-6.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-7.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-8.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-1.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-2.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-3.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-4.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-5.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-9.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-10.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-11.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-12.jpg"],
     description: ["Spacious modern bungalow","Modern kitchen","Modern interior design and lighting"]
   },
   {
-    img: ["img-28.jpg","img-29.jpg","/img-30.jpg","/img-31.jpg","/img-32.jpg"],
+    img: ["https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-28.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-29.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-30.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-31.jpg","https://pub-7d7a723854a4461eb58768b8c0e97058.r2.dev/img-32.jpg"],
     description: ["Modern flat roof mansion","Modern interior design and lighting","Modern kitchen","Double roof design"]
   }
 ];
