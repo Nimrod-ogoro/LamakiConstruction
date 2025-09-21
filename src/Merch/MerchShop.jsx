@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchProducts } from "./services/ProductService";
 import { getCart, addToCart as addToCartService } from "./services/CartService";
 import AuthModal from "../components/AuthModal";
+import Footer from "../components/Footer";
 
 export default function MerchShop() {
   const [products, setProducts] = useState([]);
@@ -203,6 +204,7 @@ export default function MerchShop() {
           ))}
         </div>
       </div>
+      <Footer/>
 
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
