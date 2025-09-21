@@ -8,8 +8,10 @@ export default function MerchShop() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [authOpen, setAuthOpen] = useState(false);
-  const navigate = useNavigate();
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredBtn, setHoveredBtn] = useState(null);
 
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const isLoggedIn = token;
   const cartCount = cart.reduce((sum, i) => sum + (i.quantity || 0), 0);
@@ -31,7 +33,7 @@ export default function MerchShop() {
     try {
       await addToCartService(product.id, 1);
 
-      /*  ✔️  store real item in localStorage  */
+      /* ✔️ store real item in localStorage */
       const item = {
         cart_id: Date.now(),
         product_id: product.id,
@@ -52,7 +54,7 @@ export default function MerchShop() {
     }
   };
 
-  /* ====== your existing inline styles ====== */
+  /* ====== modernized inline styles ====== */
   const plainCSS = {
     header: {
       background: "#ECF8F9",
@@ -64,12 +66,19 @@ export default function MerchShop() {
       borderBottom: "2px solid #800000",
     },
     btnPrimary: {
-      background: "#800000",
+      background: "#0066cc",
       color: "#fff",
       border: "none",
-      borderRadius: "4px",
-      padding: "6px 12px",
+      borderRadius: "8px",
+      padding: "10px 14px",
       cursor: "pointer",
+      fontSize: "14px",
+      fontWeight: "500",
+      transition: "background 0.2s ease",
+      flex: 1,
+    },
+    btnPrimaryHover: {
+      background: "#0052a3",
     },
     btnSecondary: {
       background: "#ffffff",
@@ -82,46 +91,76 @@ export default function MerchShop() {
     container: { maxWidth: "1100px", margin: "20px auto", padding: "0 15px" },
     products: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-      gap: "20px",
-      marginTop: "20px",
+      gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+      gap: "24px",
+      marginTop: "25px",
     },
     card: {
       background: "#ffffff",
-      border: "1px solid #99ccff",
-      borderRadius: "6px",
-      padding: "15px",
+      border: "1px solid #cce0ff",
+      borderRadius: "12px",
+      padding: "18px",
       display: "flex",
       flexDirection: "column",
       height: "100%",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+      transition: "transform 0.2s ease, box-shadow 0.2s ease",
+      cursor: "pointer",
+    },
+    cardHover: {
+      transform: "translateY(-4px)",
+      boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
     },
     cardImg: {
       width: "100%",
-      height: "160px",
+      height: "180px",
       objectFit: "cover",
-      borderRadius: "4px",
-      marginBottom: "10px",
-      background: "#e6f2ff",
+      borderRadius: "10px",
+      marginBottom: "12px",
+      background: "#f0f7ff",
     },
-    cardTitle: { margin: "8px 0", fontSize: "16px", color: "#004d99" },
-    cardDesc: { fontSize: "13px", marginBottom: "10px", color: "#555" },
+    cardTitle: {
+      margin: "8px 0",
+      fontSize: "17px",
+      fontWeight: "600",
+      color: "#004d99",
+      lineHeight: "1.4",
+    },
+    cardDesc: {
+      fontSize: "14px",
+      marginBottom: "12px",
+      color: "#666",
+      flexGrow: 1,
+    },
     price: {
       fontWeight: "bold",
-      fontSize: "15px",
-      color: "#800000",
-      marginBottom: "10px",
+      fontSize: "16px",
+      color: "#b30000",
+      marginBottom: "14px",
     },
-    actions: { display: "flex", gap: "8px", marginTop: "auto" },
-    logo:{ height: "40px" , cursor: "pointer" }
+    actions: {
+      display: "flex",
+      gap: "10px",
+      marginTop: "auto",
+    },
+    logo: { height: "60px", cursor: "pointer" },
   };
 
   return (
     <>
       <header style={plainCSS.header}>
-        <img src="/logo.png" alt="Lamaki Designs Logo"  onClick={() => navigate("/")} style={plainCSS.logo} />
+        <img
+          src="/logo.png"
+          alt="Lamaki Designs Logo"
+          onClick={() => navigate("/")}
+          style={plainCSS.logo}
+        />
         <h1>Lamaki Designs</h1>
         <div>
-          <button style={plainCSS.btnSecondary} onClick={() => navigate("/Cart")}>
+          <button
+            style={plainCSS.btnSecondary}
+            onClick={() => navigate("/Cart")}
+          >
             Cart ({cartCount})
           </button>
         </div>
@@ -130,19 +169,33 @@ export default function MerchShop() {
       <div style={plainCSS.container}>
         <div style={plainCSS.products}>
           {products.map((p) => (
-            <div style={plainCSS.card} key={p.id}>
+            <div
+              key={p.id}
+              style={{
+                ...plainCSS.card,
+                ...(hoveredCard === p.id ? plainCSS.cardHover : {}),
+              }}
+              onMouseEnter={() => setHoveredCard(p.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
               {p.image_url && (
-                <img
-                  src={p.image_url} // ✅ use the full URL directly
-                  alt={p.name}
-                  style={plainCSS.cardImg}
-                />
+                <img src={p.image_url} alt={p.name} style={plainCSS.cardImg} />
               )}
               <h3 style={plainCSS.cardTitle}>{p.name}</h3>
               <p style={plainCSS.cardDesc}>{p.description}</p>
-              <div style={plainCSS.price}>ksh{Number(p.price ?? 0).toFixed(2)}</div>
+              <div style={plainCSS.price}>
+                ksh{Number(p.price ?? 0).toFixed(2)}
+              </div>
               <div style={plainCSS.actions}>
-                <button style={plainCSS.btnPrimary} onClick={() => addToCart(p)}>
+                <button
+                  style={{
+                    ...plainCSS.btnPrimary,
+                    ...(hoveredBtn === p.id ? plainCSS.btnPrimaryHover : {}),
+                  }}
+                  onMouseEnter={() => setHoveredBtn(p.id)}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                  onClick={() => addToCart(p)}
+                >
                   Add to Cart
                 </button>
               </div>
@@ -155,4 +208,3 @@ export default function MerchShop() {
     </>
   );
 }
-

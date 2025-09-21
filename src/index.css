@@ -144,6 +144,9 @@ styling===================*/
   .logo-containerd {
     display: flex;
   }
+  .title{
+    font-size: 0.856rem;
+  }
 }
 
 /* ===============================================
@@ -627,9 +630,15 @@ ul.achivements-list li::marker{
   }
 
   .about-btn {
-    width: 100%;
-    height: 65px;
+    width: 70%;
+    height: 45px;
     float: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto 0 auto;
+    font-size: 0.876rem;
+
   
   }
 
