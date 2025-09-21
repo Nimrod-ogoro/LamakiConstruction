@@ -6,6 +6,12 @@ import { IoCallOutline } from "react-icons/io5";
 const Hero = () => {
   const [showVideo, setShowVideo] = useState(true);
   const videoRef = useRef(null);
+    const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -52,7 +58,7 @@ const Hero = () => {
           Professional construction services for residential and commercial projects.<br/>
           From concept to completion, we deliver quality craftsmanship that lasts.
         </p>
-        <Button className="hero-btn-1">
+        <Button className="hero-btn-1" onClick={() => scrollToSection('contact')}>
           Get Free Quote 
           <GoArrowRight className='hero-icon-1' />
         </Button>
