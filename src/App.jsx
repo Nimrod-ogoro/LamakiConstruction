@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Index from './pages/Index'
 import NotFound from './pages/NotFound'
 import Merchandise from './pages/Merchandise'
+import { Analytics } from "@vercel/analytics/next"
 
 
 import Residential from './pages/Residential'
