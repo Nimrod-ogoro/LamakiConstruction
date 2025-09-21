@@ -2167,7 +2167,7 @@ auth modal==============================*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f0f4f8;
+  background: #81bbf6;
 }
 
 .success-header {
