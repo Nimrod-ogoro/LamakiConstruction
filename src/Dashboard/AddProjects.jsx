@@ -7,7 +7,9 @@ const AddProject = () => {
     description: "",
     images: [],
   });
+  const [uploading, setUploading] = useState(false);
 
+  // Handle text + file inputs
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "images") {
@@ -17,39 +19,61 @@ const AddProject = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // 🔥 Upload a single file directly to R2 via signed URL
+  const uploadFileToR2 = async (file) => {
+    // 1. Get signed upload URL from backend
+    const res = await fetchAPI(
+      `/api/upload-url?filename=${encodeURIComponent(file.name)}&type=${file.type}`,
+      { method: "GET" }
+    );
+    const { uploadURL, fileURL } = await res.json();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("description", formData.description);
-    formData.images.forEach((img) => {
-      formDataToSend.append("images", img);
+    // 2. PUT directly to R2
+    await fetch(uploadURL, {
+      method: "PUT",
+      body: file,
+      headers: { "Content-Type": file.type },
     });
 
+    return fileURL; // ✅ final public R2 URL
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUploading(true);
+
     try {
-      const res = await fetchAPI(
-        "/api/projects",
-        {
-          method: "POST",
-          body: formDataToSend,
-        },
-        true // ⚡ flag for FormData (if your helper requires it)
-      );
+      // Upload all images first
+      const uploadedURLs = [];
+      for (const img of formData.images) {
+        const url = await uploadFileToR2(img);
+        uploadedURLs.push(url);
+      }
+
+      // Send metadata + image URLs to backend
+      const res = await fetchAPI("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          description: formData.description,
+          images: uploadedURLs, // ✅ store only URLs
+        }),
+      });
 
       if (res.ok) {
         alert("✅ Project added successfully!");
-        setFormData({
-          name: "",
-          description: "",
-          images: [],
-        });
+        setFormData({ name: "", description: "", images: [] });
       } else {
-        alert("❌ Failed to add project");
+        const errData = await res.json();
+        alert("❌ Failed to add project: " + (errData?.error || "Unknown error"));
       }
     } catch (err) {
       console.error(err);
-      alert("⚠️ Error adding project");
+      alert("⚠️ Error uploading project");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -83,8 +107,8 @@ const AddProject = () => {
           onChange={handleChange}
         />
 
-        <button type="submit" className="btn-primary">
-          Add Project
+        <button type="submit" className="btn-primary" disabled={uploading}>
+          {uploading ? "Uploading..." : "Add Project"}
         </button>
       </form>
     </div>
@@ -92,3 +116,4 @@ const AddProject = () => {
 };
 
 export default AddProject;
+
