@@ -58,7 +58,7 @@ const AddProject = () => {
         body: JSON.stringify({
           name: formData.name,
           description: formData.description,
-          images: uploadedURLs, // ✅ store only URLs
+          imageUrls: uploadedURLs, // ✅ backend expects this
         }),
       });
 
