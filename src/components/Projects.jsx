@@ -3,6 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { fetchAPI } from "../api";
 
+/* ---------- static fall-back data ---------- */
 const staticProjects = [
   {
     img: [
@@ -23,19 +24,29 @@ const staticProjects = [
   },
 ];
 
+/* ---------- helper ---------- */
+const safe = (arr) => (Array.isArray(arr) ? arr : []);
+
 const Projects = () => {
   const [projects, setProjects] = useState(staticProjects);
-  const [currentIndexes, setCurrentIndexes] = useState(staticProjects.map(() => 0));
-  const [lightbox, setLightbox] = useState({ isOpen: false, images: [], index: 0 });
+  const [currentIndexes, setCurrentIndexes] = useState(
+    staticProjects.map(() => 0)
+  );
+  const [lightbox, setLightbox] = useState({
+    isOpen: false,
+    images: [],
+    index: 0,
+  });
 
-  const safe = (arr) => (Array.isArray(arr) ? arr : []);
-
+  /* ---------- 1.  fetch dynamic projects ---------- */
   useEffect(() => {
     fetchAPI("/api/projects")
       .then((res) => res.json())
       .then((data) => {
         const formatted = safe(data).map((p) => ({
-          img: safe(p.images).filter((i) => typeof i === "string" && i.trim() !== ""),
+          img: safe(p.images).filter(
+            (i) => typeof i === "string" && i.trim() !== ""
+          ),
           description: safe(p.description),
         }));
         const merged = [...staticProjects, ...formatted];
@@ -45,6 +56,7 @@ const Projects = () => {
       .catch((err) => console.error("❌ Fetch projects failed:", err));
   }, []);
 
+  /* ---------- 2.  auto-rotate each project gallery ---------- */
   useEffect(() => {
     const id = setInterval(() => {
       setCurrentIndexes((prev) =>
@@ -57,6 +69,7 @@ const Projects = () => {
     return () => clearInterval(id);
   }, [projects]);
 
+  /* ---------- 3.  lightbox controls ---------- */
   const openLightbox = (images, index) =>
     setLightbox({ isOpen: true, images, index });
 
@@ -75,6 +88,7 @@ const Projects = () => {
       index: (p.index + 1) % p.images.length,
     }));
 
+  /* ---------- render ---------- */
   return (
     <section id="projects" className="projects">
       <div className="projects-catalogue">
@@ -85,24 +99,26 @@ const Projects = () => {
       </div>
 
       <div className="gallery">
-        {safe(projects).map((proj, index) => (
-          <Card key={index} className="projects-card-gallery">
+        {safe(projects).map((proj, idx) => (
+          <Card key={idx} className="projects-card-gallery">
             <CardContent className="project-card-content">
-              <div className="project-image-single">
+              <div
+                className="project-image-single"
+                onClick={() => openLightbox(proj.img, currentIndexes[idx])}
+              >
                 {proj.img.length > 0 && (
                   <img
-                    src={proj.img[currentIndexes[index]]}
-                    alt={`Project ${index + 1}`}
-                    onClick={() => openLightbox(proj.img, currentIndexes[index])}
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none"; // hide broken images
-                    }}
+                    src={proj.img[currentIndexes[idx]]}
+                    alt={`Project ${idx + 1}`}
+                    loading="lazy"
+                    onError={(e) => (e.currentTarget.style.display = "none")}
                   />
                 )}
               </div>
+
               <ul className="project-description">
-                {safe(proj.description).map((desc, i) => (
-                  <li key={i}>{desc}</li>
+                {safe(proj.description).map((d, i) => (
+                  <li key={i}>{d}</li>
                 ))}
               </ul>
             </CardContent>
@@ -110,20 +126,43 @@ const Projects = () => {
         ))}
       </div>
 
+      {/* ---------- lightbox ---------- */}
       {lightbox.isOpen && (
-        <div className="lightbox-overlay">
-          <button className="lightbox-close" onClick={closeLightbox}>
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <button
+            className="lightbox-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              closeLightbox();
+            }}
+          >
             <X />
           </button>
-          <button className="lightbox-prev" onClick={prevImage}>
+
+          <button
+            className="lightbox-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
+          >
             <ChevronLeft />
           </button>
+
           <img
             src={lightbox.images[lightbox.index]}
             alt="Preview"
             className="lightbox-image"
+            onClick={(e) => e.stopPropagation()}
           />
-          <button className="lightbox-next" onClick={nextImage}>
+
+          <button
+            className="lightbox-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
+          >
             <ChevronRight />
           </button>
         </div>
@@ -133,6 +172,5 @@ const Projects = () => {
 };
 
 export default Projects;
-
 
 

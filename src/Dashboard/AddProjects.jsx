@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { fetchAPI } from "../api"; // ✅ global API helper
+import { fetchAPI } from "../api";
+import imageCompression from "browser-image-compression"; // ← add this dep
 
 const AddProject = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,6 @@ const AddProject = () => {
   });
   const [uploading, setUploading] = useState(false);
 
-  // Handle text + file inputs
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "images") {
@@ -19,64 +19,63 @@ const AddProject = () => {
     }
   };
 
-  // 🔥 Upload a single file directly to R2 via signed URL
+  /* ----------  NEW : compress → R2  ---------- */
   const uploadFileToR2 = async (file) => {
-    // 1. Get signed upload URL from backend
+    const compressed = await imageCompression(file, {
+      maxSizeMB: 0.8,
+      maxWidthOrHeight: 1600,
+      useWebWorker: true,
+    });
+
     const res = await fetchAPI(
-      `/api/upload-url?filename=${encodeURIComponent(file.name)}&type=${file.type}`,
+      `/api/projects/signed-url?filename=${encodeURIComponent(file.name)}&mimetype=${compressed.type}`,
       { method: "GET" }
     );
     const { uploadURL, fileURL } = await res.json();
 
-    // 2. PUT directly to R2
     await fetch(uploadURL, {
       method: "PUT",
-      body: file,
-      headers: { "Content-Type": file.type },
+      body: compressed,
+      headers: { "Content-Type": compressed.type },
     });
 
-    return fileURL; // ✅ final public R2 URL
+    return fileURL;
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-
     try {
-      // Upload all images first
-      const uploadedURLs = [];
-      for (const img of formData.images) {
-        const url = await uploadFileToR2(img);
-        uploadedURLs.push(url);
-      }
+      const urls = await Promise.all(
+        Array.from(formData.images).map(uploadFileToR2)
+      );
 
-      // Send metadata + image URLs to backend
       const res = await fetchAPI("/api/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           description: formData.description,
-          imageUrls: uploadedURLs, // ✅ backend expects this
+          imageUrls: urls,
         }),
       });
 
       if (res.ok) {
-        alert("✅ Project added successfully!");
+        alert("✅ Project added!");
         setFormData({ name: "", description: "", images: [] });
       } else {
-        const errData = await res.json();
-        alert("❌ Failed to add project: " + (errData?.error || "Unknown error"));
+        const err = await res.json();
+        alert("❌ " + (err?.error || "Failed"));
       }
     } catch (err) {
       console.error(err);
-      alert("⚠️ Error uploading project");
+      alert("⚠️ Upload error");
     } finally {
       setUploading(false);
     }
   };
 
+  /* ----------  UI unchanged  ---------- */
   return (
     <div className="admin-container">
       <h2>Add Project</h2>

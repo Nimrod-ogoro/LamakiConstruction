@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
 import Projects from '../components/Projects'
 import Contact from '../components/Contact'
+import ReviewWall from '../components/ReviewWall'
 
 
 
@@ -20,7 +21,7 @@ const Index = () => {
       
        <Projects/>
       <About/>
-     
+     <ReviewWall/>
       <Contact/>
       <Footer/>
       <Chatbot/>
