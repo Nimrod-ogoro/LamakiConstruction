@@ -85,7 +85,7 @@ const AuthModal = ({ open, onClose }) => {
 
   const handleGoogleAuth = () => {
     const baseURL = import.meta.env.VITE_API_URL?.trim() || "http://localhost:5000/api";
-    window.location.href = `${baseURL}/auth/google`;
+    window.location.href = `${baseURL}/api/auth/google`;
   };
 
   return (
