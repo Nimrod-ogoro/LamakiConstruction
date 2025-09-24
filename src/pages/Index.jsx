@@ -18,8 +18,7 @@ const Index = () => {
       <Navbar/>
       <Hero/>
       <Services/>
-      
-       <Projects/>
+      <Projects/>
       <About/>
      <ReviewWall/>
       <Contact/>

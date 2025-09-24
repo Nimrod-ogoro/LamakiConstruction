@@ -67,7 +67,7 @@ export default function ReviewWall() {
   };
 
   return (
-    <section style={{ padding: "60px 24px", background: "#f8fafc" , marginTop: "40px"}}>
+    <section style={{ padding: "60px 24px", background: "#f8fafc" , marginTop: "640px", '@media (min-width: 360px)': { marginTop: "10px" }}}>
       <div style={{ maxWidth: 920, margin: "0 auto" }}>
         <h2 style={{ fontSize: "2rem", fontWeight: 700, textAlign: "center", marginBottom: 40 }}>
           What Our Clients Say
