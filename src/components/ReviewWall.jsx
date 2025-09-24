@@ -1,9 +1,7 @@
-// components/ReviewWall.jsx  (or .tsx)
+// components/ReviewWall.jsx
 import React, { useEffect, useState } from "react";
 
-const GOOGLE_PLACE_ID = "ChIJxxxxxxxxxxxxxxxxxxx"; // ← your GB place id
-const GOOGLE_API_KEY  = import.meta.env.VITE_GOOGLE_API_KEY; // never hard-code in real repo
-const API             = import.meta.env.VITE_API;            // https://api.lamaki.design
+const API = import.meta.env.VITE_API; // e.g. https://api.lamaki.design
 
 /* ---------- small helpers ---------- */
 const stars = (n) =>
@@ -12,7 +10,11 @@ const stars = (n) =>
   ));
 
 const isoToHuman = (iso) =>
-  new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  new Date(iso).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
 /* ---------- the component ---------- */
 export default function ReviewWall() {
@@ -21,27 +23,12 @@ export default function ReviewWall() {
   const [form, setForm]         = useState({ author: "", rating: 5, text: "" });
   const [showForm, setShowForm] = useState(false);
 
-  /* 1.  load Google reviews + your DB reviews */
+  /* 1. load reviews from your backend DB only */
   useEffect(() => {
     (async () => {
       try {
-        const [googleRes, ownRes] = await Promise.all([
-          fetch(
-            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${GOOGLE_PLACE_ID}&fields=reviews&key=${GOOGLE_API_KEY}`
-          ).then((r) => r.json()),
-          fetch(`${API}/reviews`).then((r) => r.json()),
-        ]);
-
-        const google = (googleRes.result?.reviews || []).map((r) => ({
-          id:     `g-${r.time}`,
-          author: r.author_name,
-          rating: r.rating,
-          text:   r.text,
-          date:   r.time * 1000,
-          source: "google",
-        }));
-
-        setReviews([...google, ...ownRes].sort((a, b) => b.date - a.date));
+        const ownRes = await fetch(`${API}/reviews`).then((r) => r.json());
+        setReviews(ownRes.sort((a, b) => b.date - a.date));
       } catch (e) {
         console.error(e);
       } finally {
@@ -50,26 +37,51 @@ export default function ReviewWall() {
     })();
   }, []);
 
-  /* 2.  add a client review → POST to DB */
+  /* 2. add a client review → POST to DB */
   const addReview = async (e) => {
     e.preventDefault();
     if (!form.author.trim() || !form.text.trim()) return;
-    const res = await fetch(`${API}/reviews`, {
-      method:  "POST",
-      headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify({ author: form.author, rating: form.rating, text: form.text }),
-    });
-    if (!res.ok) return alert("Sorry, please try again.");
-    const newReview = await res.json();
-    setReviews([newReview, ...reviews]); // optimistic UI
-    setForm({ author: "", rating: 5, text: "" });
-    setShowForm(false);
+
+    try {
+      const res = await fetch(`${API}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          author: form.author,
+          rating: form.rating,
+          text: form.text,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to save review");
+
+      const newReview = await res.json();
+      setReviews([newReview, ...reviews]); // optimistic UI
+      setForm({ author: "", rating: 5, text: "" });
+      setShowForm(false);
+    } catch (err) {
+      alert("Sorry, please try again.", err);
+    }
   };
 
   return (
-    <section style={{ padding: "60px 24px", background: "#f8fafc" , marginTop: "640px", '@media (min-width: 360px)': { marginTop: "10px" }}}>
+    <section
+      style={{
+        padding: "60px 24px",
+        background: "#f8fafc",
+        marginTop: "640px",
+        "@media (min-width: 360px)": { marginTop: "10px" },
+      }}
+    >
       <div style={{ maxWidth: 920, margin: "0 auto" }}>
-        <h2 style={{ fontSize: "2rem", fontWeight: 700, textAlign: "center", marginBottom: 40 }}>
+        <h2
+          style={{
+            fontSize: "2rem",
+            fontWeight: 700,
+            textAlign: "center",
+            marginBottom: 40,
+          }}
+        >
           What Our Clients Say
         </h2>
 
@@ -94,13 +106,29 @@ export default function ReviewWall() {
                   boxShadow: "0 4px 12px rgba(0,0,0,.05)",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", marginBottom: 12 }}>
-                  <div style={{ fontWeight: 600, marginRight: 8 }}>{r.author}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 12,
+                  }}
+                >
+                  <div style={{ fontWeight: 600, marginRight: 8 }}>
+                    {r.author}
+                  </div>
                   <div style={{ fontSize: "1rem" }}>{stars(r.rating)}</div>
                 </div>
-                <p style={{ color: "#475569", lineHeight: 1.6 }}>“{r.text}”</p>
-                <div style={{ fontSize: ".8rem", color: "#9ca3af", marginTop: 12 }}>
-                  {isoToHuman(r.date)} {r.source === "google" && "via Google"}
+                <p style={{ color: "#475569", lineHeight: 1.6 }}>
+                  “{r.text}”
+                </p>
+                <div
+                  style={{
+                    fontSize: ".8rem",
+                    color: "#9ca3af",
+                    marginTop: 12,
+                  }}
+                >
+                  {isoToHuman(r.date)}
                 </div>
               </div>
             ))}
@@ -139,28 +167,54 @@ export default function ReviewWall() {
               <input
                 placeholder="Your name"
                 value={form.author}
-                onChange={(e) => setForm({ ...form, author: e.target.value })}
-                style={{ width: "100%", marginBottom: 12, padding: 10, borderRadius: 6, border: "1px solid #d1d5db" }}
+                onChange={(e) =>
+                  setForm({ ...form, author: e.target.value })
+                }
+                style={{
+                  width: "100%",
+                  marginBottom: 12,
+                  padding: 10,
+                  borderRadius: 6,
+                  border: "1px solid #d1d5db",
+                }}
                 required
               />
               <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", marginBottom: 6 }}>Rating</label>
+                <label style={{ display: "block", marginBottom: 6 }}>
+                  Rating
+                </label>
                 <select
                   value={form.rating}
-                  onChange={(e) => setForm({ ...form, rating: Number(e.target.value) })}
-                  style={{ padding: 8, borderRadius: 6, border: "1px solid #d1d5db" }}
+                  onChange={(e) =>
+                    setForm({ ...form, rating: Number(e.target.value) })
+                  }
+                  style={{
+                    padding: 8,
+                    borderRadius: 6,
+                    border: "1px solid #d1d5db",
+                  }}
                 >
                   {[5, 4, 3, 2, 1].map((n) => (
-                    <option key={n} value={n}>{n} star{n > 1 && "s"}</option>
+                    <option key={n} value={n}>
+                      {n} star{n > 1 && "s"}
+                    </option>
                   ))}
                 </select>
               </div>
               <textarea
                 placeholder="Tell us about your experience…"
                 value={form.text}
-                onChange={(e) => setForm({ ...form, text: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, text: e.target.value })
+                }
                 rows={4}
-                style={{ width: "100%", marginBottom: 16, padding: 10, borderRadius: 6, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  marginBottom: 16,
+                  padding: 10,
+                  borderRadius: 6,
+                  border: "1px solid #d1d5db",
+                }}
                 required
               />
               <div>
