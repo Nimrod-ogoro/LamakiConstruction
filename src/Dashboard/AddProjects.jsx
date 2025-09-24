@@ -1,6 +1,7 @@
+// AddProject.jsx
 import React, { useState } from "react";
 import { fetchAPI } from "../api";
-import imageCompression from "browser-image-compression"; // ← add this dep
+import imageCompression from "browser-image-compression";
 
 const AddProject = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const AddProject = () => {
     }
   };
 
-  /* ----------  NEW : compress → R2  ---------- */
+  /* ---------- compress → R2 (signed URL) ---------- */
   const uploadFileToR2 = async (file) => {
     const compressed = await imageCompression(file, {
       maxSizeMB: 0.8,
@@ -36,7 +37,10 @@ const AddProject = () => {
     await fetch(uploadURL, {
       method: "PUT",
       body: compressed,
-      headers: { "Content-Type": compressed.type },
+      headers: {
+        "Content-Type": compressed.type,
+        "x-amz-acl": "public-read", // ← signed header
+      },
     });
 
     return fileURL;
@@ -75,7 +79,6 @@ const AddProject = () => {
     }
   };
 
-  /* ----------  UI unchanged  ---------- */
   return (
     <div className="admin-container">
       <h2>Add Project</h2>
