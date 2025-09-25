@@ -1,7 +1,7 @@
 // components/ReviewWall.jsx
 import React, { useEffect, useState } from "react";
 
-const API = import.meta.env.VITE_API_URL; // e.g. https://api.lamaki.design
+const API = import.meta.env.VITE_API_URL;
 
 /* ---------- small helpers ---------- */
 const stars = (n) =>
@@ -28,7 +28,7 @@ export default function ReviewWall() {
     (async () => {
       try {
         const ownRes = await fetch(`${API}/api/reviews`).then((r) => r.json());
-        setReviews(ownRes.sort((a, b) => b.date - a.date));
+        setReviews(ownRes.sort((a, b) => b.created_at - a.created_at));
       } catch (e) {
         console.error(e);
       } finally {
@@ -56,7 +56,7 @@ export default function ReviewWall() {
       if (!res.ok) throw new Error("Failed to save review");
 
       const newReview = await res.json();
-      setReviews([newReview, ...reviews]); // optimistic UI
+      setReviews([newReview, ...reviews]);
       setForm({ author: "", rating: 5, text: "" });
       setShowForm(false);
     } catch (err) {
@@ -119,7 +119,7 @@ export default function ReviewWall() {
                   <div style={{ fontSize: "1rem" }}>{stars(r.rating)}</div>
                 </div>
                 <p style={{ color: "#475569", lineHeight: 1.6 }}>
-                  “{r.text}”
+                  {r.body}
                 </p>
                 <div
                   style={{
@@ -128,7 +128,7 @@ export default function ReviewWall() {
                     marginTop: 12,
                   }}
                 >
-                  {isoToHuman(r.date)}
+                  {isoToHuman(r.created_at)}
                 </div>
               </div>
             ))}
