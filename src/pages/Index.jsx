@@ -8,6 +8,7 @@ import Chatbot from '../components/Chatbot'
 import Projects from '../components/Projects'
 import Contact from '../components/Contact'
 import ReviewWall from '../components/ReviewWall'
+import FAQ from '../components/Faq'
 
 
 
@@ -21,6 +22,7 @@ const Index = () => {
       <Projects/>
       <About/>
      <ReviewWall/>
+     <FAQ/>
       <Contact/>
       <Footer/>
       <Chatbot/>
