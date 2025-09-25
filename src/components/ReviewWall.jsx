@@ -27,7 +27,7 @@ export default function ReviewWall() {
   useEffect(() => {
     (async () => {
       try {
-        const ownRes = await fetch(`${API}/reviews`).then((r) => r.json());
+        const ownRes = await fetch(`${API}/api/reviews`).then((r) => r.json());
         setReviews(ownRes.sort((a, b) => b.date - a.date));
       } catch (e) {
         console.error(e);
@@ -43,7 +43,7 @@ export default function ReviewWall() {
     if (!form.author.trim() || !form.text.trim()) return;
 
     try {
-      const res = await fetch(`${API}/reviews`, {
+      const res = await fetch(`${API}/api/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
