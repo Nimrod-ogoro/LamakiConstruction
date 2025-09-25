@@ -49,7 +49,7 @@ export default function ReviewWall() {
         body: JSON.stringify({
           author: form.author,
           rating: form.rating,
-          text: form.text,
+          body: form.text,
         }),
       });
 
