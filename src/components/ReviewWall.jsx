@@ -1,7 +1,7 @@
 // components/ReviewWall.jsx
 import React, { useEffect, useState } from "react";
 
-const API = import.meta.env.VITE_API; // e.g. https://api.lamaki.design
+const API = import.meta.env.VITE_API_URL; // e.g. https://api.lamaki.design
 
 /* ---------- small helpers ---------- */
 const stars = (n) =>
