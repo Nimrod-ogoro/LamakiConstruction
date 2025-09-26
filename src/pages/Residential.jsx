@@ -20,7 +20,7 @@ export default function Residential() {
             className="hero-videod"
             poster="/img/residential-hero.jpg"
           >
-            <source src="https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/residential.mp4" type="video/mp4" />
+            <source src="https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/commercial.mp4" type="video/mp4" />
             {/* graceful fallback */}
             <img
               src="/img/residential-hero.jpg"

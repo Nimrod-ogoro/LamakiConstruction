@@ -9,7 +9,7 @@ const BackHomeNavbar = () => {
       {/* Logo block – identical markup / css */}
       <div className="logo-container">
         <img src="logo.png" alt="Logo" className="logo" />
-        <h1 className="title">Lamaki Designs</h1>
+        <h1 className="titled">Lamaki Designs</h1>
       </div>
 
       {/* SINGLE link – uses the same .nav-button class */}

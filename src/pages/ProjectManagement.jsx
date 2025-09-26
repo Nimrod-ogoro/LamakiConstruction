@@ -18,7 +18,7 @@ export default function ProjectManagement() {
             loop
             playsInline
             className="hero-videod"
-            poster="/img/project-mgmt-hero.jpg"
+            poster="https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/20241102_135926.jpg"
           >
             <source src="/video/project-mgmt-hero.mp4" type="video/mp4" />
             {/* graceful fallback */}

@@ -594,6 +594,12 @@ ul.achivements-list li::marker{
   vertical-align: middle;
   margin-right: 10px;
 }
+/* clear floats after the about block */
+.about-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 /* Your existing CSS above stays exactly the same */
 
 /* Responsive styles */
@@ -604,6 +610,12 @@ ul.achivements-list li::marker{
     float: none;
     padding: 20px;
   }
+  /* clear floats after the about block */
+.about-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
   .achivements-grid {
     grid-template-columns: 1fr 1fr;
@@ -2628,7 +2640,7 @@ auth modal==============================*/
 
 /* mobile */
 @media (max-width: 768px) {
-  .title { font-size: 2rem; }
+  .titled { font-size: 2rem; }
   .subtitle { font-size: 1rem; }
 }
 .whatsapp-float {
