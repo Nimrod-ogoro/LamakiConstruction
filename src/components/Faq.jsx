@@ -18,11 +18,22 @@ const faqs = [
   { q: "What is your after-sales service?", a: "Free first-year maintenance check, 24-hour response for leaks or cracks, and a dedicated WhatsApp hotline for life." },
   { q: "How do I get started?", a: "Click “Get Quote” on this site, upload your sketch or land documents, and we’ll send a preliminary estimate within 48 hours." },
 ];
-
-export default function FAQ() {
+const FAQ = () => {
   const [open, setOpen] = useState(null);
 
-  const toggle = (idx) => setOpen((prev) => (prev === idx ? null : idx));
+  /* close all <details> except the one we just clicked */
+  const toggle = (idx) => {
+    setOpen((prev) => {
+      const next = prev === idx ? null : idx;
+
+      /* DOM-level close (instant, no flash) */
+      document.querySelectorAll<HTMLDetailsElement>("details").forEach((d, i) => {
+        d.open = i === next;
+      });
+
+      return next;
+    });
+  };
 
   return (
     <section id="faq" style={{ padding: "60px 24px", background: "linear-gradient(to bottom, #f8fafc, #eef2f6)" }}>
@@ -36,7 +47,10 @@ export default function FAQ() {
             <details
               key={idx}
               open={open === idx}
-              onToggle={() => toggle(idx)}
+              onClick={(e) => {
+                e.preventDefault(); // stop native toggle
+                toggle(idx);
+              }}
               style={{
                 background: "#fff",
                 borderRadius: 12,
@@ -68,3 +82,5 @@ export default function FAQ() {
     </section>
   );
 }
+
+export default FAQ;
