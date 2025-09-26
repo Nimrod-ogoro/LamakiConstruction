@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "./ui/card";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { fetchAPI } from "../api";
+import Button from "./ui/Button";
 
 /* ---------- static fall-back data ---------- */
 const staticProjects = [
@@ -167,6 +168,9 @@ const Projects = () => {
           </button>
         </div>
       )}
+      <Button className="projects-btn">
+        <a href="/GalleryPage">View More</a>
+      </Button>
     </section>
   );
 };

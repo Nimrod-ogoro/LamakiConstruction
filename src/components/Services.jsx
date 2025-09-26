@@ -1,7 +1,8 @@
 import React from 'react'
 import { LuHouse } from "react-icons/lu";
-import { FaScrewdriverWrench } from "react-icons/fa6";
+import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { BsBuildings } from "react-icons/bs";
 import {
   Card,
   CardHeader,
@@ -25,7 +26,7 @@ const Services = () => {
 
     },
     {
-      icon: <img src="comercial.png" className='commercial-icon' alt="comercial-img"/>,
+      icon: <BsBuildings className='service-icon' />,
       title: "Commercial Construction",
       description: "Comprehensive construction solutions for commercial properties.",
       features: ["Office buildings", "Retail spaces", "Warehouses", "Industrial facilities"],
@@ -39,7 +40,7 @@ const Services = () => {
        link: <Link to='/ProjectManagemnet'>Learn More</Link>
     },
     {
-      icon: <FaScrewdriverWrench className='service-icon' />,
+      icon: <HiOutlineWrenchScrewdriver className='service-icon' />,
       title: "Renovation and Remodeling",
       description: "Transforming existing spaces with modern designs and functionality.",
       features: ["Kitchen remodeling", "Bathroom renovations", "Interior design", "Exterior upgrades"],

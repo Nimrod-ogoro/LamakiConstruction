@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { fetchAPI } from "../api"; // ✅ use global API helper
+import imageCompression from "browser-image-compression";
+import { fetchAPI } from "../api"; // ✅ global API helper
 
 const Products = () => {
   const [form, setForm] = useState({
@@ -24,13 +25,26 @@ const Products = () => {
       formData.append("description", form.description);
       formData.append("price", form.price);
       formData.append("stock", form.stock);
-      if (form.image) formData.append("image", form.image);
 
-      // ✅ Use fetchAPI in raw mode (skip JSON header handling)
-      const res = await fetchAPI("/api/products", {
-        method: "POST",
-        body: formData,
-      }, true); // <-- pass true to signal raw FormData (if your helper supports it)
+      // ✅ Compress image before upload
+      if (form.image) {
+        const options = {
+          maxSizeMB: 2, // keep under 2 MB
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+        const compressedFile = await imageCompression(form.image, options);
+        formData.append("image", compressedFile);
+      }
+
+      const res = await fetchAPI(
+        "/api/products",
+        {
+          method: "POST",
+          body: formData,
+        },
+        true // raw mode
+      );
 
       if (!res.ok) {
         const data = await res.json();
@@ -38,6 +52,7 @@ const Products = () => {
       }
 
       alert("✅ Product added successfully!");
+      setForm({ name: "", description: "", price: "", stock: "", image: null });
     } catch (err) {
       console.error(err);
       alert("Request failed");
@@ -54,7 +69,7 @@ const Products = () => {
           <input type="number" name="price" placeholder="Price" onChange={handleChange} required />
           <input type="number" name="stock" placeholder="Stock" onChange={handleChange} required />
         </div>
-        <input type="file" name="image" onChange={handleChange} />
+        <input type="file" name="image" accept="image/*" onChange={handleChange} />
         <button type="submit">Add Product</button>
       </form>
     </div>
@@ -62,3 +77,4 @@ const Products = () => {
 };
 
 export default Products;
+

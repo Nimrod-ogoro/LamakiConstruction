@@ -20,6 +20,7 @@ import Login from './auth/Login'
 import SignUp from './auth/Signup'
 
 import { AuthProvider } from './auth/AuthContext'
+import GalleryPage from './pages/GalleryPage'
 
 
 
@@ -42,7 +43,8 @@ const App = () => {
       <Route path='/Cart' element={<Cart/>}/>
       <Route path='/orderSuccess' element={<OrderSuccess/>}/>
     <Route path='/Login' element={<Login/>} />
-    <Route path='Signup' element={<SignUp/>}/>      
+    <Route path='Signup' element={<SignUp/>}/> 
+    <Route path='/GalleryPage' element={<GalleryPage/>}/>     
     <Route path="*" element={<NotFound/>} />
     </Routes>
     </AuthProvider>
