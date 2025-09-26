@@ -1,4 +1,6 @@
 import { Hammer, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { FiYoutube } from "react-icons/fi";
+import { AiFillTikTok } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -17,9 +19,11 @@ const Footer = () => {
             </p>
             <div className="footer-socials">
               <Facebook className="social-icon" href="https://www.facebook.com/LamakiDesignsandConstruction" />
-              <Twitter className="social-icon" href="#" />
+              <Twitter className="social-icon" href="https://x.com/LDevents_design" />
               <Instagram className="social-icon" href="https://www.instagram.com/lamaki_designs/" />
               <Linkedin className="social-icon" href="#" />
+              <FiYoutube className="social-icon" href="https://www.youtube.com/@LAMAKI_DESIGNSEVENTS" />
+              <AiFillTikTok className="social-icon" href="https://www.tiktok.com/@lamaki.designs" />
             </div>
           </div>
 

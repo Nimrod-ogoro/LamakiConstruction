@@ -6,28 +6,55 @@ export default function Commercial() {
   return (
     <div className="commercial-d" style={{ fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif", color: "#222", background: "#f9fafc", lineHeight: "1.7" }}>
 
-      {/* Hero */}
-      <section className="hero-d" style={{ background: "linear-gradient(135deg, #004080, #0077b6)", color: "#fff", textAlign: "center", padding: "100px 20px" }}>
-        <div className="hero-content-d">
-          <span className="badge-d" style={{ background: "#00b4d8", color: "#fff", padding: "6px 16px", borderRadius: "20px", fontSize: "0.9rem", fontWeight: "600", textTransform: "uppercase", display: "inline-block", marginBottom: "20px" }}>Commercial Construction</span>
-          <h1 className="title-d" style={{ fontSize: "2.8rem", fontWeight: "700", marginBottom: "15px" }}>Spaces that Power Your Business</h1>
-          <p className="subtitle-d" style={{ fontSize: "1.2rem", maxWidth: "700px", margin: "0 auto 30px", color: "#e1e1e1" }}>
+      {/* -------------------------------------------------- */}
+      {/* HERO – video / image background  (full-bleed)     */}
+      {/* -------------------------------------------------- */}
+      <section className="hero-dd">
+        {/* media layer */}
+        <div className="hero-mediad">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="hero-videod"
+            poster="/img/commercial-hero.jpg"
+          >
+            <source src="https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/commercial.mp4" type="video/mp4" />
+            {/* graceful fallback */}
+            <img
+              src={["https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/1758857397098_474035485_578147631784516_3924579168926766816_n.jpg", "https://pub-06a2a441a00c4ef597b4f4f0cac7cddf.r2.dev/1758857396977_474083772_578147278451218_4662504608685688386_n.jpg"]}
+              alt="Modern commercial building"
+              className="hero-img-fallback"
+            />
+          </video>
+        </div>
+
+        {/* dark overlay so text pops */}
+        <div className="hero-overlayd" />
+
+        {/* content sits on top */}
+        <div className="hero-contentd">
+          <span className="badge">Commercial Construction</span>
+          <h1 className="titled">Spaces that Power Your Business</h1>
+          <p className="subtitle">
             From offices to retail stores, we design and build commercial spaces that maximize productivity, brand image, and client experience.
           </p>
-          <div className="cta-d" style={{ display: "flex", gap: "15px", justifyContent: "center", flexWrap: "wrap" }}>
-            <button className="btn-primary-d" style={{ background: "#00b4d8", border: "none", padding: "14px 32px", color: "#fff", fontWeight: "600", borderRadius: "6px", cursor: "pointer", transition: "background 0.3s ease, transform 0.2s ease" }} onMouseEnter={(e) => { e.target.style.background = "#0077b6"; e.target.style.transform = "scale(1.05)" }} onMouseLeave={(e) => { e.target.style.background = "#00b4d8"; e.target.style.transform = "scale(1)" }}>Get Free Consultation</button>
-            <button className="btn-secondary-d" style={{ background: "transparent", border: "2px solid #fff", padding: "14px 32px", color: "#fff", fontWeight: "600", borderRadius: "6px", cursor: "pointer", transition: "background 0.3s ease, color 0.3s ease" }} onMouseEnter={(e) => { e.target.style.background = "#fff"; e.target.style.color = "#004080" }} onMouseLeave={(e) => { e.target.style.background = "transparent"; e.target.style.color = "#fff" }}>View Commercial Projects</button>
+          <div className="cta-d">
+            <button className="btn-primary">Get Free Consultation</button>
+            <button className="btn-secondary">View Commercial Projects</button>
           </div>
         </div>
       </section>
 
+      {/* (rest of page unchanged) */}
       {/* Value Props */}
       <section className="values-d" style={{ padding: "70px 20px", maxWidth: "1100px", margin: "auto", textAlign: "center" }}>
         <h2 style={{ fontSize: "2rem", fontWeight: "700", color: "#004080", marginBottom: "40px" }}>Why Businesses Trust Us</h2>
         <div className="grid-d" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "25px" }}>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><Briefcase size={28} /> Professional Delivery</div>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><Store size={28} /> Custom Retail Spaces</div>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><ClipboardCheck size={28} /> Regulatory Compliance</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><Briefcase size={28} /> Professional Delivery</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><Store size={28} /> Custom Retail Spaces</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><ClipboardCheck size={28} /> Regulatory Compliance</div>
         </div>
       </section>
 
@@ -35,9 +62,9 @@ export default function Commercial() {
       <section className="services-d" style={{ padding: "70px 20px", maxWidth: "1100px", margin: "auto", textAlign: "center" }}>
         <h2 style={{ fontSize: "2rem", fontWeight: "700", color: "#004080", marginBottom: "40px" }}>Commercial Services</h2>
         <div className="grid-d" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "25px" }}>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><Building2 size={24} /> Office Buildings</div>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><Building2 size={24} /> Retail & Malls</div>
-          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)" }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)" }}><Building2 size={24} /> Mixed-Use Complexes</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><Building2 size={24} /> Office Buildings</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><Building2 size={24} /> Retail & Malls</div>
+          <div className="card-d" style={{ background: "#fff", padding: "25px", borderRadius: "12px", boxShadow: "0 6px 18px rgba(0, 64, 128, 0.15)", fontSize: "1.1rem", fontWeight: "600", color: "#0077b6", display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" }} onMouseEnter={(e) => { e.target.style.transform = "translateY(-6px)"; e.target.style.boxShadow = "0 10px 24px rgba(0, 64, 128, 0.25)"; }} onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 6px 18px rgba(0, 64, 128, 0.15)"; }}><Building2 size={24} /> Mixed-Use Complexes</div>
         </div>
       </section>
 
@@ -78,7 +105,7 @@ export default function Commercial() {
       {/* Final CTA */}
       <section className="final-cta-d" style={{ background: "linear-gradient(135deg, #004080, #0077b6)", color: "#fff", textAlign: "center", padding: "70px 20px", borderRadius: "12px", margin: "60px 20px" }}>
         <h2 style={{ fontSize: "2rem", marginBottom: "25px" }}>Build with Confidence</h2>
-        <button className="btn-primary-d" style={{ background: "#00b4d8", padding: "14px 32px", border: "none", borderRadius: "6px", fontWeight: "600", color: "#fff", cursor: "pointer", transition: "background 0.3s ease, transform 0.2s ease" }} onMouseEnter={(e) => { e.target.style.background = "#0077b6"; e.target.style.transform = "scale(1.05)" }} onMouseLeave={(e) => { e.target.style.background = "#00b4d8"; e.target.style.transform = "scale(1)" }}>Start Your Project</button>
+        <button className="btn-primary-d" style={{ background: "#00b4d8", padding: "14px 32px", border: "none", borderRadius: "6px", fontWeight: "600", color: "#fff", cursor: "pointer", transition: "background 0.3s ease, transform 0.2s ease" }} onMouseEnter={(e) => { e.target.style.background = "#0077b6"; e.target.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.target.style.background = "#00b4d8"; e.target.style.transform = "scale(1)"; }}>Start Your Project</button>
       </section>
 
       <Footer />

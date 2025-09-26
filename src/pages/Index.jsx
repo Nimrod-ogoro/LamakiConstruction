@@ -9,6 +9,7 @@ import Projects from '../components/Projects'
 import Contact from '../components/Contact'
 import ReviewWall from '../components/ReviewWall'
 import FAQ from '../components/Faq'
+import WhatsAppButton from '../components/WhatsappButton'
 
 
 
@@ -26,6 +27,7 @@ const Index = () => {
       <Contact/>
       <Footer/>
       <Chatbot/>
+      <WhatsAppButton/>
 
     </div>
   )
