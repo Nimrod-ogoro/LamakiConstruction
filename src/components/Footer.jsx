@@ -2,6 +2,12 @@ import { Hammer, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { FiYoutube } from "react-icons/fi";
 import { AiFillTikTok } from "react-icons/ai";
 
+const Social = ({ href, children }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer">
+    {children}
+  </a>
+);
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -10,20 +16,41 @@ const Footer = () => {
           {/* Company Info */}
           <div className="footer-company">
             <div className="footer-logo">
-             <a href="/#home"><img src="logo.png" alt="logo" className="logo"/></a> 
+              <a href="/#home">
+                <img src="logo.png" alt="logo" className="logo" />
+              </a>
               <h1>Lamaki Designs</h1>
             </div>
             <p className="footer-description">
-              Professional construction services for residential and commercial projects.
-              Building excellence since 2014 with quality craftsmanship and exceptional service.
+              Professional construction services for residential and commercial
+              projects. Building excellence since 2014 with quality craftsmanship
+              and exceptional service.
             </p>
+
             <div className="footer-socials">
-              <Facebook className="social-icon" href="https://www.facebook.com/LamakiDesignsandConstruction" />
-              <Twitter className="social-icon" href="https://x.com/LDevents_design" />
-              <Instagram className="social-icon" href="https://www.instagram.com/lamaki_designs/" />
-              <Linkedin className="social-icon" href="#" />
-              <FiYoutube className="social-icon" href="https://www.youtube.com/@LAMAKI_DESIGNSEVENTS" />
-              <AiFillTikTok className="social-icon" href="https://www.tiktok.com/@lamaki.designs" />
+              <Social href="https://www.facebook.com/LamakiDesignsandConstruction">
+                <Facebook className="social-icon" />
+              </Social>
+
+              <Social href="https://x.com/LDevents_design">
+                <Twitter className="social-icon" />
+              </Social>
+
+              <Social href="https://www.instagram.com/lamaki_designs/">
+                <Instagram className="social-icon" />
+              </Social>
+
+              <Social href="https://www.linkedin.com/company/lamaki-desings-and-events/about/?viewAsMember=true">
+                <Linkedin className="social-icon" />
+              </Social>
+
+              <Social href="https://www.youtube.com/@LAMAKI_DESIGNSEVENTS">
+                <FiYoutube className="social-icon" />
+              </Social>
+
+              <Social href="https://www.tiktok.com/@lamaki.designs">
+                <AiFillTikTok className="social-icon" />
+              </Social>
             </div>
           </div>
 
@@ -42,23 +69,25 @@ const Footer = () => {
           <div className="footer-section">
             <h3 className="footer-heading">Contact</h3>
             <ul className="footer-list">
-              <li> (+254) 113710584</li>
+              <li>(+254) 113710584</li>
               <li>lamakidesignsltd@gmail.com</li>
-              <li>Githunguri<br />Nairobi, Kenya</li>
+              <li>
+                Githunguri<br />Nairobi, Kenya
+              </li>
             </ul>
           </div>
 
-          {/* Small Map */}
+          {/* Map */}
           <div className="footer-map">
             <iframe
               title="Company Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.82607323815!2d36.98881607448303!3d-1.277850335615928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f6b4d8c0516e9%3A0x417dc538f5da6fad!2sLamaki%20Designs%20and%20Construction!5e0!3m2!1sen!2ske!4v1754943738247!5m2!1sen!2ske" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.82607323815!2d36.98881607448303!3d-1.277850335615928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f6b4d8c0516e9%3A0x417dc538f5da6fad!2sLamaki%20Designs%20and%20Construction!5e0!3m2!1sen!2ske!4v1754943738247!5m2!1sen!2ske"
               width="100%"
               height="150"
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
-            ></iframe>
+            />
           </div>
         </div>
 

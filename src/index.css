@@ -752,13 +752,18 @@ ul.achivements-list li::marker{
   cursor: pointer;
   border-radius: 5px;
 }
+/* ----------  CONTACT SECTION  ---------- */
 section.contact{
   margin-top: 100px;
   background-color: #ECF8F9;
   width: 100%;
   height: 950px;
-  
-  
+}
+
+/* ----------  LEFT SIDE – INFO CARDS  ---------- */
+.contact-content{
+  display: inline-flex;
+  gap: 50px;
 }
 .contact-info-grid{
   display: flex;
@@ -771,146 +776,110 @@ section.contact{
   height: 110px;
   margin-left: 100px;
   display: flex;
-  flex-direction: row;
-  
   padding-left: 20px;
 }
 .contact-card-content{
-   display: grid;
+  display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 8px 12px;
+  gap: 8px 6px;
   text-align: center;
-  column-gap: 6px; /* Reduced gap between icon and title */
-  row-gap: 8px;
 }
-/* Title */
-.contact-card-title {
+.contact-card-title{
   grid-row: 1 / 2;
   grid-column: 2 / 3;
   font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
+  font-family: 'oswald', sans-serif;
 }
-
-/* Content paragraph */
-.contact-card-p {
+.contact-card-p{
   grid-row: 2 / 3;
   grid-column: 1 / 3;
   margin: 0;
   color: #444;
-     
+  font-family: 'oswald', sans-serif;
 }
-
-/* Description paragraph */
-.contact-card-description {
+.contact-card-description{
   grid-row: 3 / 4;
   grid-column: 1 / 3;
   margin: 0;
   color: #666;
   font-size: 0.9rem;
 }
+
+/* ----------  RIGHT SIDE – FORM  ---------- */
 .contact-form{
   margin-top: 60px;
-   margin-right: 270px ;
+  margin-right: 270px;
   
-}
-.contact-form{
-  height: 700px;
 }
 .contact-h{
   text-align: center;
   font-size: 1.8rem;
   font-family: 'oswald', sans-serif;
-  
 }
-
 .contact-card-form{
   margin-top: 20px;
   width: 800px;
-  margin-top: 200;
-  height: 600px;
-  
+  height: 800px;
 }
+
 .input{
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.form-input{
-  border:1px solid ;
-  border-radius: 10px;
-  color: #6b7280;
+.form-label{
   font-family: 'oswald', sans-serif;
 }
-.form-label{
+.form-input{
+  border: 1px solid;
+  border-radius: 10px;
+  color: #6b7280;
   font-family: 'oswald', sans-serif;
 }
 .form-icon{
   color: #3b82f6;
   font-size: 2rem;
- 
-}
-.contact-card-title{
-  text-align: center;
-  
-}
-
-.contact-content{
-  display: inline-flex;
-  flex-direction: row;
-  gap:50px;
-}
-.contact-card-p{
-font-family: 'oswald', sans-serif;
 }
 .contact-btn{
   width: 200px;
   text-align: center;
 }
-/* Your existing CSS above remains exactly the same */
 
-/* Responsive styles */
-@media (max-width: 1024px) {
- 
-  .contact-content {
+/* ----------  RESPONSIVE  ---------- */
+@media (max-width: 1024px){
+  .contact-content{
     flex-direction: column;
     align-items: center;
     gap: 30px;
   }
-
-  .contact-info-grid {
+  .contact-info-grid{
     margin-top: 50px;
     align-items: center;
   }
-
-  .contact-card {
+  .contact-card{
     margin-left: 0;
     width: 90%;
     max-width: 450px;
   }
-
-  .contact-form {
+  .contact-form{
     margin-right: 0;
     width: 90%;
     max-width: 800px;
     height: 900px;
-    
   }
-
-  .contact-card-form {
+  .contact-card-form{
     width: 100%;
-   
   }
 }
 
-@media (max-width: 768px) {
-  .contact-info-grid {
+@media (max-width: 768px){
+  .contact-info-grid{
     margin-top: 20px;
     gap: 15px;
   }
-
-  .contact-card {
+  .contact-card{
     width: 100%;
     height: auto;
     padding: 15px;
@@ -918,57 +887,49 @@ font-family: 'oswald', sans-serif;
     align-items: center;
     text-align: center;
   }
-
-  .contact-card-content {
+  .contact-card-content{
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
     text-align: center;
   }
-
-  .contact-form {
+  .contact-form{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0px;
     height: 900px;
   }
-
-  .contact-card-form {
+  .contact-card-form{
     height: auto;
     padding: 20px;
   }
-
-  .contact-btn {
+  .contact-btn{
     width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  section.contact {
+@media (max-width: 480px){
+  section.contact{
     margin-top: 30px;
     height: auto;
     padding: 20px 10px;
   }
-
-  .contact-h {
+  .contact-h{
     font-size: 1.4rem;
   }
-
-  .contact-card {
+  .contact-card{
     padding: 10px;
   }
-
-  .form-input {
+  .form-input{
     font-size: 0.9rem;
   }
-
-  .contact-card-title {
+  .contact-card-title{
     font-size: 1rem;
   }
-
   .contact-card-p,
-  .contact-card-description {
+  .contact-card-description{
     font-size: 0.85rem;
   }
 }
+
+/*projects*/
 
 section.projects {
   margin-top: 60px;
@@ -1241,7 +1202,7 @@ section.projects {
 }
 @media  (max-width: 768px) {
   .footer{
-    margin-top: 150px;
+    margin-top: 0px;
   }
 }
 .chatbot-toggle {

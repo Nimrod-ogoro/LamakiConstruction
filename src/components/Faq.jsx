@@ -1,4 +1,3 @@
-// components/FAQ.jsx
 import React, { useState } from "react";
 
 const faqs = [
@@ -21,22 +20,18 @@ const faqs = [
 const FAQ = () => {
   const [open, setOpen] = useState(null);
 
-  /* close all <details> except the one we just clicked */
-  const toggle = (idx) => {
-    setOpen((prev) => {
-      const next = prev === idx ? null : idx;
+  /* 1. React state toggle */
+  const toggle = (idx) => setOpen((p) => (p === idx ? null : idx));
 
-      /* DOM-level close (instant, no flash) */
-      document.querySelectorAll<HTMLDetailsElement>("details").forEach((d, i) => {
-        d.open = i === next;
-      });
-
-      return next;
-    });
+  /* 2. Kill native toggle completely */
+  const killNativeToggle = (e) => {
+    e.preventDefault();          // stop the browser
+    const idx = Number(e.currentTarget.dataset.idx);
+    toggle(idx);
   };
 
   return (
-    <section id="faq" style={{ padding: "60px 24px", background: "linear-gradient(to bottom, #f8fafc, #eef2f6)" }}>
+    <section id="faq" style={{ padding: "60px 24px", background: "linear-gradient(to bottom,#f8fafc,#eef2f6)" }}>
       <div style={{ maxWidth: 920, margin: "0 auto" }}>
         <h2 style={{ fontSize: "2.2rem", fontWeight: 700, textAlign: "center", marginBottom: 48, color: "#0f172a" }}>
           Frequently Asked Questions
@@ -46,18 +41,16 @@ const FAQ = () => {
           {faqs.map((faq, idx) => (
             <details
               key={idx}
+              data-idx={idx}
               open={open === idx}
-              onClick={(e) => {
-                e.preventDefault(); // stop native toggle
-                toggle(idx);
-              }}
+              onToggle={(e) => e.preventDefault()}   // fallback safety
+              onClick={killNativeToggle}            // main blocker
               style={{
                 background: "#fff",
                 borderRadius: 12,
                 padding: "24px 28px",
                 boxShadow: "0 4px 12px rgba(0,0,0,.05)",
                 cursor: "pointer",
-                transition: "all .25s ease",
               }}
             >
               <summary
@@ -72,7 +65,9 @@ const FAQ = () => {
                 }}
               >
                 {faq.q}
-                <span style={{ fontSize: "1.4rem", color: "#0ea5e9" }}>{open === idx ? "−" : "+"}</span>
+                <span style={{ fontSize: "1.4rem", color: "#0ea5e9" }}>
+                  {open === idx ? "−" : "+"}
+                </span>
               </summary>
               <p style={{ marginTop: 16, color: "#475569", lineHeight: 1.7 }}>{faq.a}</p>
             </details>
@@ -81,6 +76,6 @@ const FAQ = () => {
       </div>
     </section>
   );
-}
+};
 
 export default FAQ;
