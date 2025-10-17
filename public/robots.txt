@@ -1,0 +1,24 @@
+# ✅ Lamaki Designs Robots.txt
+# This file controls how search engines crawl and index your website.
+# Author: Lamaki Designs (https://lamakidesigns.co.ke)
+
+User-agent: *
+Allow: /
+
+# Disallow admin and system routes if any exist
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /server/
+Disallow: /private/
+Disallow: /tmp/
+
+# Sitemap location (make sure it’s HTTPS and updated)
+Sitemap: https://lamakidesigns.co.ke/sitemap.xml
+
+# Crawl delay for non-Google bots (prevents server overload)
+Crawl-delay: 5
+
+# Optional: Improve analytics accuracy by excluding tracking URLs
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
