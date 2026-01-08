@@ -232,22 +232,22 @@ export default function Projects() {
 
   /* 1. fetch dynamic projects + blob folders -------------------*/
   useEffect(() => {
-  fetchAPI("/api/projects")
-    .then((res) => res.json())
-    .then((data) => {
-      const db = safe(data).map((p) => ({
-        img:  safe(p.images).some((i) => typeof i === "string" && i.trim() !== "")
-               ? []                                    // block DB images
-               : safe(p.images),
-        description: safe(p.description),
-      }));
-      const blob = Object.values(blobProjects).filter((p) => p.img.length);
-      const merged = [...staticProjects, ...db, ...blob];
-      setProjects(merged);
-      setCurrentIndexes(merged.map(() => 0));
-    })
-    .catch((err) => console.error("❌ Fetch projects failed:", err));
-}, []);
+    fetchAPI("/api/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        const db = safe(data).map((p) => ({
+          img:  safe(p.images).some((i) => typeof i === "string" && i.trim() !== "")
+                 ? []                                    // block DB images
+                 : safe(p.images),
+          description: safe(p.description),
+        }));
+        const blob = Object.values(blobProjects).filter((p) => p.img.length);
+        const merged = [...staticProjects, ...db, ...blob];
+        setProjects(merged);
+        setCurrentIndexes(merged.map(() => 0));
+      })
+      .catch((err) => console.error("❌ Fetch projects failed:", err));
+  }, []);
 
   /* 2. 30-second GLOBAL rotation with 5 s CSS fade ------------*/
   useEffect(() => {
@@ -309,12 +309,31 @@ export default function Projects() {
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={(e) => { e.stopPropagation(); closeLightbox(); }}><X /></button>
           <button className="lightbox-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }}><ChevronLeft /></button>
-          <img src={lightbox.images[lightbox.index]} alt="Preview" className="lightbox-image" onClick={(e) => e.stopPropagation()} />
+          {/*  VIDEO SUPPORT INSIDE LIGHT-BOX  */}
+          {lightbox.images[lightbox.index] &&
+            /\.(mp4|webm|ogg|m3u8|mov)(\?.*)?$/i.test(lightbox.images[lightbox.index]) ? (
+            <video
+              src={lightbox.images[lightbox.index]}
+              controls
+              muted
+              loop
+              playsInline
+              className="lightbox-image"
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <img
+              src={lightbox.images[lightbox.index]}
+              alt="Preview"
+              className="lightbox-image"
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
           <button className="lightbox-next" onClick={(e) => { e.stopPropagation(); nextImage(); }}><ChevronRight /></button>
         </div>
       )}
 
-     {/* <Button className="projects-btn">
+      {/* <Button className="projects-btn">
         <a href="/GalleryPage">View More</a>
       </Button> */}
     </section>
