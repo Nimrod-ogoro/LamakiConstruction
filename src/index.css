@@ -2626,3 +2626,17 @@ auth modal==============================*/
   transform: scale(1.1);
   background-color: #1ebe5d;
 }
+/* 5-second visible cross-fade */
+.fade-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.fade-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 5s ease-in-out;
+}
