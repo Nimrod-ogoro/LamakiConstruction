@@ -232,20 +232,22 @@ export default function Projects() {
 
   /* 1. fetch dynamic projects + blob folders -------------------*/
   useEffect(() => {
-    fetchAPI("/api/projects")
-      .then((res) => res.json())
-      .then((data) => {
-        const db = safe(data).map((p) => ({
-          img: safe(p.images).filter((i) => typeof i === "string" && i.trim() !== ""),
-          description: safe(p.description),
-        }));
-        const blob = Object.values(blobProjects).filter((p) => p.img.length);
-        const merged = [...staticProjects, ...db, ...blob];
-        setProjects(merged);
-        setCurrentIndexes(merged.map(() => 0));
-      })
-      .catch((err) => console.error("❌ Fetch projects failed:", err));
-  }, []);
+  fetchAPI("/api/projects")
+    .then((res) => res.json())
+    .then((data) => {
+      const db = safe(data).map((p) => ({
+        img:  safe(p.images).some((i) => typeof i === "string" && i.trim() !== "")
+               ? []                                    // block DB images
+               : safe(p.images),
+        description: safe(p.description),
+      }));
+      const blob = Object.values(blobProjects).filter((p) => p.img.length);
+      const merged = [...staticProjects, ...db, ...blob];
+      setProjects(merged);
+      setCurrentIndexes(merged.map(() => 0));
+    })
+    .catch((err) => console.error("❌ Fetch projects failed:", err));
+}, []);
 
   /* 2. 30-second GLOBAL rotation with 5 s CSS fade ------------*/
   useEffect(() => {
